@@ -13,3 +13,13 @@
 .vagrant
 version.txt
 behat.yml
+
+client/node_modules
+client/bower_components
+web/compiled
+web/dist
+
+web/.sass-cache
+web/scss/.sass-cache
+*.orig
+*.rej

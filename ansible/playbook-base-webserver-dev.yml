@@ -3,6 +3,10 @@
   sudo: true
 
   vars:
+    php_install:
+      - php5
+      - php5-xdebug
+      - php5-sqlite
     php_pear_channels:
       - pear.phing.info
     php_pear_libraries:
