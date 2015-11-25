@@ -1,0 +1,21 @@
+---
+
+- stat: path={{mockserver_jar_dir}}
+  register: md
+
+- stat: path="{{mockserver_jar_dir}}/{{mockserver_jar_name}}"
+  register: mf
+
+
+- debug: msg="{{md}}"
+
+- name: create mock server base dir
+  file: path={{mockserver_jar_dir}} owner=root group=root mode=755 state=directory
+  when: md.stat.exists == False
+
+
+- name: install mock server
+  get_url: url=http://repo1.maven.org/maven2/com/github/tomakehurst/wiremock/{{mockserver_version}}/wiremock-{{mockserver_version}}-standalone.jar dest={{mockserver_jar_dir}}/wiremock-{{mockserver_version}}-standalone.jar
+
+- name: overwrite exitsing mockserver file if newer
+  file: force="yes" src={{mockserver_jar_dir}}/wiremock-{{mockserver_version}}-standalone.jar dest={{mockserver_jar_dir}}/{{mockserver_jar_name}} state=link

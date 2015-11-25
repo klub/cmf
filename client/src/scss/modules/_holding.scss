@@ -1,0 +1,267 @@
+.holding_page {
+    position:relative;
+    text-align:center;
+
+    .holding_page_bg_container {
+        height:300px;
+        overflow:hidden;
+
+        @include media($phablet) {
+            height:558px;
+        }
+
+        .holding_page_bg {
+            display:block;
+            content:url('../../../../../compiled/assets/img/holding_page/mobile/bg.png');
+
+            @include media($phablet) {
+                content:url('../../../../../compiled/assets/img/holding_page/desktop/bg.png');
+                min-width:1200px;
+                width:100%;
+            }
+        }
+    }
+
+    .holding_page_bg_overlay {
+        position:absolute;
+        top:0;
+        margin-top:30px;
+        text-align:center;
+        width:100%;
+
+        @include media($phablet) {
+            margin-top:50px;
+        }
+
+
+        .small-xmas-tree {
+            width:28px;
+
+            @include media($phablet) {
+                width:50px;
+            }
+        }
+
+        h1 {
+            color:$white;
+            font-size:2.4rem;
+            margin-right:auto;
+            margin-left:auto;
+            margin-top:0;
+            margin-bottom:0;
+            line-height:3rem;
+            text-shadow: 1px 1px #000;
+            padding-left:10px;
+            padding-right:10px;
+            font-weight:normal;
+            font-family:"Frontage W00 Regular";
+
+            @include media($phablet) {
+                font-size:1.65rem;
+                margin-top:15px;
+                border-bottom:1px solid $white;
+                line-height:3rem;
+                width: 90%;
+                padding-bottom: 23px;
+                padding-left:0px;
+                padding-right:0px;
+            }
+
+            @include media($tablet) {
+                width:760px;
+                font-size:4rem;
+                line-height:5rem;
+            }
+
+            @include media($desktop) {
+                width:780px;
+            }
+
+            &.h1_closed {
+                font-size:2rem;
+                line-height:2.5rem;
+
+                @include media($desktop) {
+                    width:960px;
+                    font-size:3.6rem;
+                    line-height:4rem;
+                }
+            }
+        }
+
+        .christmas {
+            font-size:20px;
+            margin-bottom:0;
+            line-height:20px;
+
+            @include media($phablet) {
+                font-size:30px;
+                line-height:30px;
+            }
+        }
+
+        .is-for-sharing {
+            font-size:10px;
+
+            @include media($phablet) {
+                font-size:15px;
+            }
+        }
+    }
+
+    .desktop_only {
+        display:none;
+
+        @include media($phablet) {
+            display:inline;
+        }
+    }
+
+    .take-xmas-in-stride {
+        background-color:$white;
+        padding: 35px;
+        font-size: 16px;
+        border-bottom: 1px solid #b9a774;
+        font-family:MaryAnnRegular, open-sans, sans-serif;;
+
+        @include media($phablet) {
+            background-color:transparent;
+            color:$white;
+            width:480px;
+            top:300px;
+            left:50%;
+            position:absolute;
+            margin-left:-240px;
+            font-size:22px;
+            padding:0;
+            border-bottom: 0px solid #b9a774;
+        }
+
+        @include media($tablet) {
+            width:760px;
+            margin-left:-390px;
+            top:380px;
+        }
+
+        .xmas_ideas {
+            border-radius: 25px;
+            background-color:#ccc;
+            padding:10px 45px;
+            color:#000;
+            border:0;
+            font-size:1.5rem;
+            margin-bottom:20px;
+            cursor:pointer;
+            display:block;
+
+            @include media($phablet) {
+                display:inline-block;
+                margin-right:20px;
+                width:208px;
+            }
+
+            &:hover {
+                text-decoration:none;
+                background-color:$buttonHoverSecondary;
+            }
+        }
+
+        .shop_groceries {
+            border-radius: 25px;
+            background-color:$purple;
+            padding:10px 45px;
+            color:$white;
+            border:0;
+            font-size:1.5rem;
+            margin-bottom:20px;
+            cursor:pointer;
+            display:block;
+
+            @include media($phablet) {
+                display:inline-block;
+                width:208px;
+            }
+
+            &:hover {
+                text-decoration:none;
+                background-color:$buttonColourHover;
+            }
+        }
+
+        .message {
+            margin-bottom:35px;
+            font-size:1.9rem;
+
+            .separate_paragraphs {
+                margin-top:15px;
+                display:block;
+
+                @include media($desktop) {
+                    margin-top:0;
+                    display:inline;
+                }
+            }
+        }
+
+        &.xmas_closed {
+            top:315px;
+        }
+    }
+
+    .how-it-works {
+        margin-top:0px;
+
+        .inner-container {
+            border-bottom:0;
+        }
+    }
+}
+
+.visual {
+    .hero-overlay {
+        background-repeat: no-repeat;
+        background-position: center center;
+        background-size: cover;
+
+        &.error-page{
+
+          background-image:url(../img/error/error-mobile.jpg);
+
+          @include media($tablet) {
+              background-image:url(../img/error/error-desktop.jpg);
+          }
+        }
+
+        .error {
+            font-size: 2.5rem;
+            width: 80%;
+
+            @include media($mobile) {
+                margin-bottom: 50px;
+            }
+
+            @include media($tablet) {
+                font-size: 3rem;
+                width: auto;
+            }
+        }
+
+        h3 {
+            a.error {
+                font-size: 1.9rem;
+                text-decoration: underline;
+                color: $white;
+                display: block;
+            }
+        }
+
+        h3 {
+            padding: 20px 12%;
+            margin-top: 0;
+
+            @include media($tablet) {
+                padding: 20px 15px;
+            }
+        }
+    }
+}

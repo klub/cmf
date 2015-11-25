@@ -1,0 +1,30 @@
+default:
+    suites:
+
+
+    formatters:
+        html:
+            output_path: "%paths.base%/build/reports/behat"
+        pretty: true
+
+    extensions:
+        Behat\Symfony2Extension: ~
+        Sanpi\Behatch\Extension: ~
+        Behat\MinkExtension:
+            base_url: #base_url#
+            browser_name: firefox
+            default_session: goutte
+            javascript_session: selenium2
+            goutte:
+                guzzle_parameters:
+                    verify: false
+            selenium2:
+                wd_host: #selenium.hub.url#
+                capabilities: {"browserName": "firefox", "platform": "" , "version": "" , "browser": "firefox", "browserVersion": "", "name": "ubuntu-firefox"}
+        emuse\BehatHTMLFormatter\BehatHTMLFormatterExtension:
+            name: html
+            renderer: Twig,Behat2
+            file_name: Index
+            print_args: true
+            print_outp: true
+            loop_break: true

@@ -1,0 +1,374 @@
+
+html {
+	font-size:62.5%;
+}
+
+body {
+    color: $bodyText;
+    background-color: $white;
+    font-family: Arial, sans-serif;
+    font-size: 1.4rem;
+
+    &.plp {
+        background-color: $bodyGrey;
+    }
+}
+
+.clearfix:before, .clearfix:after {
+    content: "";
+    display: table;
+    line-height: 0;
+}
+
+.clearfix:after {
+    clear: both;
+}
+
+.hide {
+	display: none;
+	opacity: 0;
+}
+
+a {
+	color: #222;
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+h1, h2, h3, h4 {
+    font-family: MaryAnnRegular, open-sans, sans-serif;
+    font-weight: normal;
+}
+
+li {
+	list-style:none;
+}
+
+p {
+	margin: 0 0 10px;
+}
+
+.mary-ann{
+    font-family: MaryAnnRegular, open-sans, sans-serif;
+}
+
+ strong {
+    font-family: MaryAnnBold, open-sans, sans-serif;
+}
+
+input {
+	min-height: 30px;
+	border-radius: 4px 0 0 4px;
+	display: inline-block;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
+    transition: border 0.2s linear 0s, box-shadow 0.2s linear 0s;
+    color: #555;
+    padding: 4px 6px;
+}
+
+.btn {
+    font-family: MaryAnnRegular, open-sans, sans-serif;
+    font-size: 1.6rem;
+    border-radius: $borderRadius;
+    background-color: $buttonColour;
+    color: $buttonText;
+    margin-bottom: $marginBottom + 5;
+    border: 0;
+    padding: 9px 6px 9px;
+    width: $buttonWidth;
+
+    &:hover,
+    &:active {
+        background-color: $buttonColourHover !important;
+        text-decoration: none;
+    }
+
+    &.secondary {
+        background-color: $buttonColourSecondary;
+        color: $buttonTextSecondary;
+        $buttonHoverSecondary : #b3b3b3;
+
+        &:hover,
+        &:active {
+            background-color: $buttonHoverSecondary !important;
+        }
+    }
+
+    &.create{
+        background-color:#CCC;
+        color:#000;
+    }
+}
+
+.btn[disabled="disabled"],
+.btn[disabled="true"],
+.btn.disabled,
+.btn:disabled {
+    background-color: $buttonColourDisabled !important;
+    color: $buttonTextDisabled !important;
+    cursor:default;
+}
+
+.btn.secondary[disabled="disabled"],
+.btn.secondary[disabled="true"],
+.btn.secondary.disabled,
+.btn.secondary:disabled {
+    background-color: $buttonColourSecondaryDisabled !important;
+    color: $buttonTextSecondaryDisabled !important;
+    cursor:default;
+}
+
+a.btn {
+    display: inline-block;
+}
+
+.create {
+   width:280px;
+   background-color:#CCC;
+   color:#000;
+   border-radius:25px;
+   font-family:MaryAnnRegular, open-sans, sans-serif;
+   display:block;
+   font-size:1.8rem;
+   text-align:center;
+   padding-top:7px;
+   padding-bottom:9px;
+   margin-bottom:20px;
+   margin-right: auto;
+   margin-left: auto;
+
+   @include media($desktop) {
+       width:220px;
+       display:inline-block;
+       margin-left:0;
+       margin-right:100px;
+   }
+}
+.inner-container {
+    max-width:960px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.form {
+    position: relative;
+    min-height: 450px;
+
+    h1 {
+        font-size: 3.6rem;
+        text-align: center;
+        padding-top: 10px;
+        margin: 0 0 10px;
+    }
+
+    h2 {
+        font-size: 2.8rem;
+        margin: 10px 0;
+        text-align: center;
+        clear: both;
+    }
+
+    li {
+        display: inline-block;
+        width: 46%;
+        margin-right: 2%;
+        margin-bottom: $marginBottom + 20px;
+        position: relative;
+
+        @include media($tablet) {
+            max-width: 300px;
+        }
+
+        > div {
+            max-width: 300px;
+            margin: 0 auto;
+        }
+
+        p {
+            margin: 0 0 5px 10px;
+            font-size: 1.2rem;
+
+            &:last-child {
+                display: none;
+            }
+        }
+
+        &.error {
+            margin-bottom: 30px;
+
+            input {
+                border: 1px solid $error;
+            }
+            [value]{
+                color: $error;
+            }
+            p:last-child {
+                display: block;
+                color: $error;
+                position: absolute;
+            }
+        }
+    }
+
+    label {
+        font-family: MaryAnnBold, open-sans, sans-serif;
+        font-size: 1.6rem;
+        display: inline-block;
+        margin-left: 10px;
+
+        &.wmargin {
+            margin-bottom: 10px;
+        }
+
+        &.checkbox {
+            font-family: Arial, sans-serif;
+            font-size: 1.4rem;
+            width: 92%;
+            float: left;
+            margin-left: 0;
+        }
+    }
+
+    p {
+        clear: left;
+        line-height: 18px;
+
+        a {
+            text-decoration: underline;
+        }
+    }
+
+    input:not([type='checkbox']) {
+        font-family: MaryAnnRegular, open-sans, sans-serif;
+        box-shadow: none;
+        border-radius: 20px;
+        display: block;
+        width: 100%;
+        font-size: 1.4rem;
+        padding: 10px;
+        border: 1px solid $darkGrey;
+        background-color: $white;
+
+		@include media($tablet) {
+			font-size:1.8rem;
+		}
+    }
+
+    input[type="checkbox"] {
+        display: block;
+        float: left;
+        margin: 4px 5px 0 0;
+        border: 0;
+    }
+
+    .button {
+        text-align: center;
+
+        .btn[disabled],
+        .btn.disabled {
+            background-color: $buttonColourDisabled !important;
+            color: $buttonTextDisabled !important;
+            cursor:default;
+        }
+    }
+
+    .tcs {
+        li {
+            display: block;
+            width: auto;
+            margin: 0 0 10px;
+            line-height: 20px;
+            max-width: none;
+        }
+
+        a {
+            text-decoration: underline;
+        }
+    }
+
+    &.pay-deposit {
+        p {
+            line-height: normal;
+        }
+    }
+
+
+    @include media($tablet) {
+        h1 {
+            font-size: 3.5rem;
+            clear: both;
+            margin: 20px 0 25px;
+            padding: 0;
+        }
+
+        h2 {
+            font-size: 3rem;
+            margin: 16px 0;
+            text-align: left;
+        }
+
+        input {
+            font-size: 1.6rem;
+        }
+
+        p {
+            line-height: 25px;
+            font-size: 1.4rem;
+        }
+
+        input[type="checkbox"]{
+            margin: 7px 10px 0 0;
+        }
+
+        *::-ms-backdrop, input[type="checkbox"]{
+            margin-top: 0;
+        }
+
+        .error-message {
+            top: 60px;
+        }
+
+        .tcs {
+            li {
+                line-height: 25px;
+                margin: 0;
+            }
+        }
+
+        .button {
+            margin-top: 20px;
+        }
+    }
+ }
+
+.error-message {
+    color: $error;
+    background-color: #eee;
+    padding: 6px 6px 6px 10px;
+    margin: 0 0 20px;
+    display: none;
+    width: 100%;
+    top: 12px;
+
+    &.active {
+        display: block;
+    }
+
+    strong {
+        color: $white;
+        border-radius: 50%;
+        background-color: $error;
+        width: 20px;
+        height: 20px;
+        display: inline-block;
+        text-align: center;
+        margin-right: 20px;
+        vertical-align: text-top;
+        line-height: 20px;
+    }
+}

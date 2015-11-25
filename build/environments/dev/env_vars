@@ -1,0 +1,16 @@
+unset `env | grep -o -P SYMFONY__[^\=]+ | xargs`
+
+export APPLICATION_ENV=dev
+export SYMFONY__DATABASE_HOST=localhost
+export SYMFONY__DATABASE_NAME=wlsm
+export SYMFONY__DATABASE_NAME_TEST=wlsm_test
+export SYMFONY__DATABASE_USER=wlsm
+export SYMFONY__DATABASE_PASSWORD=wlsm
+export SYMFONY__DATABASE_PORT=5432
+
+
+export SYMFONY__MAILER_TRANSPORT=smtp
+export SYMFONY__MAILER_HOST=127.0.0.1
+export SYMFONY__MAILER_USER=null
+export SYMFONY__MAILER_PASSWORD=null
+export SYMFONY__APP_BASE_URL=https://dev.wlsm.ents.io

@@ -1,0 +1,43 @@
+---
+  #- name: Delete previous artefacts
+  #  file: dest={{ base_dir }} state=absent
+
+  - name: Creates directory for artefact
+    file: dest="{{ project_dir }}" state=directory mode=0755
+
+  - name: Fetch artefact from S3
+    s3: bucket={{ amazon_bucket }} aws_access_key={{ amazon_key }} aws_secret_key={{ amazon_secret }} object={{ object }} dest="{{ project_dir }}/{{artefact_zip}}" mode="get"
+
+  - name: Uncompress zip file
+    command: chdir="{{ project_dir }}" tar -xf {{ artefact_zip }}
+
+  - name: Apply right permissions to project root
+    file: dest="{{ project_dir }}" state=directory mode=0755 group=www-data owner=www-data recurse=true
+
+  - name: Create cache folder
+    file: dest="{{ console_path }}/app/cache" state=directory mode=0777
+
+  - name: Create log folder
+    file: dest="{{ console_path }}/app/logs" state=directory mode=0777
+
+  - name: Setfacl on log and cache folder
+    command: setfacl -R -m u:www-data:rwX -m u:www-data:rwX {{ console_path }}/app/cache {{ console_path }}/app/logs
+
+  - name: Run symfony Asset Install
+    command: sudo su - www-data -c "cd {{ console_path }} && php app/console asset:install"
+
+  - name: Run symfony Asset dump
+    command: sudo su - www-data -c "cd {{ console_path }} && php app/console asset:dump"
+
+  - name: Run symfony clearcache for pagebuilder
+    command: sudo su - www-data -c "cd {{ pagebuilder_path }} && php symfony ccc"
+    when: pagebuilder_path is defined
+
+  - name: Clean up artefact
+    file: dest="{{ project_dir }}/{{ artefact_zip }}" state=absent
+
+  - name: Restart nginx
+    service: name=nginx state=restarted
+
+  - name: Restart PHP-FPM
+    service: name=php-fpm state=restarted

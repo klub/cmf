@@ -1,0 +1,38 @@
+@font-face {
+    font-family: MaryAnnLight;
+    src: url('../../../../../compiled/assets/fonts/mary_ann_web-light.woff');
+    font-weight: 100;
+  	font-style: normal;
+}
+
+@font-face {
+  font-family: MaryAnnRegular;
+  src: url('../../../../../compiled/assets/fonts/mary_ann_web-regular.woff');
+  font-weight: normal;
+  font-style: normal; 
+}
+
+@font-face {
+  font-family: MaryAnnMedium;
+  src: url('../../../../../compiled/assets/fonts/mary_ann_web-medium.woff');
+  font-weight: 500;
+  font-style: normal; 
+}
+
+@font-face {
+  font-family: MaryAnnBold;
+  src: url('../../../../../compiled/assets/fonts/mary_ann_web-bold.woff');
+  font-weight: bold;
+  font-style: normal; 
+}
+
+//@import url("https://fast.fonts.net/lt/1.css?apiType=css&c=664c1e10-d166-4888-8ae7-ad1755c46b79&fontids=1519629");
+@font-face{
+font-family:"Frontage W00 Regular";
+src:url("../../../../../compiled/assets/fonts/1519629/eef9a750-65c8-4738-affb-5479a04d3a79.eot?#iefix");
+src:url("../../../../../compiled/assets/fonts/1519629/eef9a750-65c8-4738-affb-5479a04d3a79.eot?#iefix") format("eot"),
+url("../../../../../compiled/assets/fonts/1519629/9dcde879-1935-4907-bd19-83980bf6b1df.woff2") format("woff2"),
+url("../../../../../compiled/assets/fonts/1519629/dac18c6e-6827-447c-b791-fc73e68be468.woff") format("woff"),
+url("../../../../../compiled/assets/fonts/1519629/81724f9a-87eb-4385-a30b-c02200b75f9e.ttf") format("truetype"),
+url("../../../../../compiled/assets/fonts/1519629/bd2de4ef-ae15-4935-8f20-29b562ed5a5e.svg#bd2de4ef-ae15-4935-8f20-29b562ed5a5e") format("svg");
+}

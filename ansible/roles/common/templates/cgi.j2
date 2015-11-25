@@ -1,0 +1,51 @@
+fastcgi_param SYMFONY__SOLR__HOST localhost;
+fastcgi_param SYMFONY__SOLR__PORT 8080;
+fastcgi_param SYMFONY__MEMCACHE__HOST localhost;
+fastcgi_param SYMFONY__DATABASE__HOST localhost;
+fastcgi_param SYMFONY__IWS__HOST {{iws_host}};
+fastcgi_param SYMFONY__PAGEBUILDER__HOST app.pagebuilder.bonsai.d;
+fastcgi_param SYMFONY__ADMIN__PAGEBUILDER__HOST app.admin.pagebuilder.bonsai.d;
+fastcgi_param SYMFONY__MEDIA__HOST {{media_host}};
+fastcgi_param SYMFONY__FRONTEND__HOST app.bonsai.d;
+fastcgi_param SYMFONY__CMS__HOST app.admin.bonsai.d;
+fastcgi_param SYMFONY__SUPER__DOMAIN app.bonsai.d;
+fastcgi_param SYMFONY__MOBILE_FRONTEND m.bonsai.d;
+fastcgi_param SYMFONY__MIYAGI__HOST app.miyagi.d;
+fastcgi_param SYMFONY__PATH__MEDIA /var/www/timeout.com/current/media;
+fastcgi_param SYMFONY__TOCARD__PURCHASE "";
+fastcgi_param SYMFONY__GRAFFITI__HOST "{{ graffiti_host }}";
+fastcgi_param  SYMFONY__GRAFFITI__INTERNAL_BASE_URL "http://{{ graffiti_host }}/internal";
+fastcgi_param  SYMFONY__GRAFFITI__PUBLIC_BASE_URL "http://{{ graffiti_host }}/public";
+
+fastcgi_param SYMFONY__TIMEOUT__SITECONFIG__ENABLED 1;
+fastcgi_param SYMFONY__TO__OMNITURE__USE_SANDBOX_ACCOUNT {{omniture_use_sandbox_account}};
+fastcgi_param SYMFONY__GRAFFITI__fastcgi_paramTOPRINT "";
+
+fastcgi_param SYMFONY__VARNISH__PURGER__HOST__1 localhost;
+fastcgi_param SYMFONY__VARNISH__PURGER__HOST__2 localhost;
+
+fastcgi_param SYMFONY__TOCARD__API https://api.footfall123.com/;
+fastcgi_param SYMFONY__TOCARD__API__CLIENT_ID 69408;
+fastcgi_param SYMFONY__TOCARD__API__KEY df8c98c85b01a8ec21b309338e5de711;
+fastcgi_param SYMFONY__TOCARD__PURCHASE "";
+
+fastcgi_param SYMFONY__SELENIUM__HOST localhost;
+
+fastcgi_param SYMFONY__DATABASE_HOST {{database_host}};
+fastcgi_param SYMFONY__DATABASE_NAME {{database_name}};
+fastcgi_param SYMFONY__DATABASE_USER {{router_pdo_connection_username}};
+fastcgi_param SYMFONY__DATABASE_PASSWORD {{router_pdo_connection_password}};
+
+fastcgi_param SYMFONY__DATABASE_HOST {{database_host}};
+fastcgi_param SYMFONY__ROUTING_DATABASE_NAME {{database_name}};
+fastcgi_param SYMFONY__ROUTER__PDO_CONNECTION__DSN '{{router_pdo_connection_dsn}}';
+fastcgi_param SYMFONY__ROUTER__PDO_CONNECTION__USERNAME {{router_pdo_connection_username}};
+fastcgi_param SYMFONY__ROUTER__PDO_CONNECTION__PASSWORD {{router_pdo_connection_password}};
+fastcgi_param SYMFONY__ROUTER__MEMCACHE_CONNECTION__HOSTNAME {{router_memcache_connection_hostname}};
+fastcgi_param SYMFONY__ROUTER__MEMCACHE_CONNECTION__PORT {{router_memcache_connection_port}};
+fastcgi_param SYMFONY__ROUTER__MEMCACHE_STORAGE__PREFIX '{{router_memcache_storage_prefix}}';
+
+fastcgi_param SYMFONY__RELEASE {{ git_hash }};
+fastcgi_param SYMFONY__SEARCH_MAP_ENABLED {{ search_map_enabled | default(1) }};
+
+fastcgi_param MOCKSERVER_PROXY_URL "http://{{hostname}}:9999/public/v1";

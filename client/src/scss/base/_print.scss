@@ -1,0 +1,168 @@
+@media print {
+    .footer,
+    .basket_dropdown,
+    .btn,
+    .info {
+        display:none !important;
+    }
+
+    *, div, p, span {
+        font-family: Arial, Helvetica, sans-serif !important;
+    }
+
+    h2 {
+        font-size: 22px !important;
+    }
+
+    .details {
+        padding: 0 !important;
+        height: 160px !important;
+        overflow: hidden !important;
+    }
+
+    .confirmation-summary {
+        background-color: #F8F8F8;
+        width: 100%;
+
+        li {
+            display: block;
+            float:left;
+            width: 30% !important;
+        }
+    }
+
+    .store_details_container {
+        display: block !important;
+
+        li {
+            display: block;
+            text-align: left;
+            float:left;
+            width: 30%;
+            margin: 0 0 0 20px;
+            line-height: 10px;
+        }
+    }
+
+    .store_details_item {
+        p {
+            line-height: 20px;
+        }
+    }
+
+    .additional_store_details {
+        display:none !important;
+    }
+
+    #order-confirmation-store-details > div > div > ul > li:nth-child(2) {
+        display:none !important;
+    }
+
+    .opening_hours_day {
+        width:100px !important;
+    }
+
+    .seasonal_opening_hours_day {
+        width:125px !important;
+    }
+
+    h1.confirmation {
+        font-size:22px !important;
+        margin-bottom:0 !important;
+    }
+
+    .sticky_header_placeholder {
+        display:none !important;
+    }
+
+    .thumbnail {
+        display:none !important;
+    }
+
+    .quantity {
+        clear:none !important;
+        width:40% !important;
+    }
+
+    .name {
+        width:60% !important;
+    }
+
+    .order-summary-container {
+        margin-top:0px !important;
+        padding-top:0px !important;
+        margin-right:0 !important;
+        margin-bottom:5px !important;
+    }
+
+    .header {
+        position:static !important;
+        max-height:35px !important;
+    }
+
+    .green_tick {
+        display:none !important;
+    }
+
+    .sainsburys_logo {
+        margin-top:0px !important;
+        text-indent:0 !important;
+        float:left;
+    }
+
+    .sainsburys_christmas_food {
+        margin-top:0px !important;
+        float:left;
+    }
+
+    .upper_nav {
+        height:25px !important;
+    }
+
+    #maincontent > div.container.confirmation > div.order-summary-container > h2 {
+        margin-top:5px !important;
+    }
+
+    .confirmation-summary {
+        margin:0 !important;
+        padding-bottom:0px !important;
+    }
+
+    .order-summary-container .summary .item {
+        margin-bottom:5px !important;
+        padding-bottom:5px !important;
+    }
+
+    #maincontent > div.container.confirmation {
+        margin-bottom:0 !important;
+    }
+
+    #maincontent > div.container.home.amend-confirm {
+        display:none !important;
+    }
+
+    #maincontent > div.container.confirmation > div.order-summary-container > ul > li > div.quantity > div > p:nth-child(1) {
+        float:right !important;
+    }
+
+    .sf-toolbar {
+        display:none !important;
+    }
+
+    .store_details_section {
+        height:200px !important;
+    }
+
+    .opening_times_container {
+        min-height:18px !important;
+        height: 18px !important;
+    }
+
+    #order-confirmation-store-details {
+        display:none !important;
+    }
+
+    .nav-container {
+        display:none !important;
+    }
+}

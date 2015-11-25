@@ -1,0 +1,3 @@
+mockserver_jar_dir: ~/
+mockserver_jar_name: wiremock-standalone.jar
+mockserver_version: 1.53

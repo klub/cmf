@@ -1,0 +1,380 @@
+.visual {
+    margin-bottom: 20px;
+
+    &.homepage-banner {
+        position:relative;
+        clear:both;
+        text-align:center;
+        margin-bottom:0;
+    }
+
+    &.product-details-banner {
+        position:relative;
+        clear:both;
+        text-align:center;
+        margin-bottom:0;
+    }
+
+    img {
+        width: 100%;
+    }
+
+    .homepage_img_container {
+        max-height:406px;
+        overflow:hidden;
+
+        @include media($tablet) {
+            max-height:544px;
+        }
+    }
+
+    .hero-img-pdp {
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: 33% center;
+        height:270px;
+
+        @include media($tablet) {
+            background-position: center center;
+            height:400px;
+        }
+    }
+
+    .hero-img {
+        display:block;
+    }
+
+
+    .hero-overlay {
+        background: url(../../../../../compiled/assets/img/homepage/mobile/homepage_banner_mobile.jpg) no-repeat center top;
+        text-align:center;
+        width:100%;
+        height:285px;
+        padding-top: 60px;
+        background-size: cover;
+
+        @include media($phablet) {
+            height:350px;
+
+        }
+
+        @include media($tablet) {
+            background: url(../../../../../compiled/assets/img/homepage/desktop/homepage_banner_desktop.jpg) no-repeat center top;
+            height: 400px;
+            padding-top: 60px;
+            overflow:hidden;
+        }
+
+        .small-xmas-tree {
+            width:28px;
+
+            @include media($tablet) {
+                width:50px;
+            }
+        }
+
+        h1 {
+            color:$white;
+            font-size:3rem;
+            margin:0 auto;
+            line-height:3rem;
+            text-shadow: 1px 1px #000;
+            padding:30px;
+            font-family:"Frontage W00 Regular";
+
+            @include media($phablet) {
+                font-size:2.5rem;
+                padding:10px 10px 0;
+            }
+
+            @include media($tablet) {
+                font-size:3rem;
+                margin-top:25px;
+                border-bottom:1px solid $white;
+                padding-bottom: 23px;
+                padding-left:0px;
+                padding-right:0px;
+                display: inline-block;
+            }
+
+            @include media($desktop) {
+                font-size:4rem;
+                width:800px;
+            }
+        }
+    }
+
+    h3 {
+        color:#3d3d3d;
+        font-size:1.6rem;
+        width:100%;
+        padding: 20px 15px;
+        font-weight:normal;
+        border-bottom:1px solid #b9a774;
+        margin:70px auto 0;
+        background-color: $white;
+
+        @include media($phablet) {
+            font-size:1.9rem;
+            color:$white;
+            border-bottom:0px;
+            width:auto;
+            padding: 0;
+            margin-top: 15px;
+            text-shadow: 1px 1px #000;
+            background-color: transparent;
+        }
+
+        @include media($tablet) {
+            width:654px;
+        }
+    }
+}
+
+/* home page styles */
+.how-it-works {
+    text-align: center;
+    background:url(../img/homepage/mobile/sparkles_bg.png) center top no-repeat;
+    background-size: 100% auto;
+    margin-top: 104px;
+
+    @include media($phablet) {
+        background-image:url(../img/homepage/desktop/sparkles_bg.png);
+        background-size: 100% auto;
+        margin-top: 0;
+    }
+
+    &.container {
+        max-width: 1200px;
+        width: 100%;
+
+        ul {
+
+            @include media($tablet) {
+                width:initial;
+            }
+        }
+    }
+
+    h2 {
+        color:#000;
+        font-size:2.6rem;
+        margin-right:auto;
+        margin-left:auto;
+        margin-top:0;
+        margin-bottom:0;
+        line-height:3rem;
+        padding-top:35px;
+        font-family:"Frontage W00 Regular";
+
+        @include media($tablet) {
+            padding-top:45px;
+        }
+    }
+
+    h3 {
+        font-size: 1.75em;
+        font-weight: normal;
+        margin-top:5px;
+        margin-bottom:30px;
+
+        @include media($tablet) {
+            margin-bottom:40px;
+        }
+    }
+
+    ul {
+        img {
+            width:90px;
+            margin-bottom:15px;
+
+            @include media($tablet) {
+                width:50%;
+            }
+        }
+
+        p {
+            font-size:1.6rem;
+            font-family: MaryAnnRegular, open-sans, sans-serif;
+        }
+
+    }
+
+    button {
+        background-color: #F8F8F8;
+        border: 1px solid $mediumGrey;
+        border-radius: 20px;
+        padding: 6px 20px;
+    }
+
+    li {
+        padding: 20px;
+    }
+
+    .inner-container {
+        border-bottom:1px solid $gold;
+        padding-bottom:20px;
+        margin-bottom:20px;
+        margin-right: auto;
+        margin-left: auto;
+        width: 95%;
+        overflow: hidden;
+
+        @include media($tablet) {
+            width: initial;
+        }
+    }
+
+
+    [class^="icon-"], [class*=" icon-"] {
+       font-size: 4.5rem;
+       color: #cab26d;
+       height:70px;
+       line-height: 70px;
+       display: block;
+    }
+
+    .icon-money{
+      font-size: 3.0rem;
+    }
+}
+
+.food-types {
+    max-width:100%;
+
+    .inner-container {
+        margin: 0 auto 60px;
+    }
+
+    .wide,
+    .narrow {
+        margin-bottom: 20px;
+        height: 250px;
+
+        @include media($phablet) {
+            height: 412px;
+        }
+    }
+
+    .overlay {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background-color: #000;
+        opacity: .3;
+    }
+
+    a {
+        display: block;
+        text-align:center;
+        position:relative;
+        background-color: #f1f1f1;
+        width: 100%;
+        height: 100%;
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center center;
+    }
+
+    h2 {
+        font-size:1.6rem;
+        letter-spacing:3px;
+        margin-bottom:40px;
+        font-family:"Frontage W00 Regular";
+        text-align: center;
+
+        @include media($tablet) {
+            font-size:3rem;
+        }
+    }
+
+    h3 {
+        font-family:"Frontage W00 Regular";
+        color:$white;
+        font-weight:normal;
+        position:absolute;
+        margin:0;
+        width: 100%;
+        top: 44%;
+        font-size:2rem;
+        text-shadow: 1px 1px #000;
+
+        @include media($phablet) {
+            font-size:3rem;
+        }
+    }
+
+    .sharing-food {
+        background-image:url(../img/homepage/mobile/home_mobile_1.jpg);
+
+        @include media($tablet) {
+            background-image:url(../img/homepage/desktop/home_desktop_1.jpg);
+        }
+    }
+
+    .turkey-poultry-game {
+        background-image:url(../img/homepage/mobile/home_mobile_2.jpg);
+
+        @include media($tablet) {
+            background-image:url(../img/homepage/desktop/home_desktop_2.jpg);
+        }
+    }
+
+    .roasts-mains {
+        background-image:url(../img/homepage/mobile/home_mobile_3.jpg);
+
+        @include media($tablet) {
+            background-image:url(../img/homepage/desktop/home_desktop_3.jpg);
+        }
+    }
+
+    .accompaniments {
+        background-image:url(../img/homepage/mobile/home_mobile_4.jpg);
+
+        @include media($tablet) {
+            background-image:url(../img/homepage/desktop/home_desktop_4.jpg);
+        }
+    }
+
+    .desserts-cheese {
+        background-image:url(../img/homepage/mobile/home_mobile_5.jpg);
+
+        @include media($tablet) {
+            background-image:url(../img/homepage/desktop/home_desktop_5.jpg);
+        }
+    }
+
+    .floral {
+        background-image:url(../img/homepage/mobile/home_mobile_6.jpg);
+
+        @include media($tablet) {
+            background-image:url(../img/homepage/desktop/home_desktop_6.jpg);
+        }
+    }
+}
+
+.christmas-for-sharing {
+    color:$white;
+    text-shadow: 5px 0px 15px #000;
+    overflow:hidden;
+    font-family:"Frontage W00 Regular";
+
+    .christmas {
+        font-size:20px;
+        margin-bottom:0;
+        line-height:20px;
+
+        @include media($desktop) {
+            font-size:30px;
+            line-height:30px;
+        }
+    }
+
+    .is-for-sharing {
+        font-size:10px;
+
+        @include media($desktop) {
+            font-size:15px;
+        }
+    }
+}

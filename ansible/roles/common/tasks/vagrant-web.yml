@@ -1,0 +1,10 @@
+---
+
+- name: Generate ~/.profile file
+  template: src=bash_profile.j2 dest="/home/{{ lookup('env', 'SUDO_USER') }}/.bash_profile" group="{{ lookup('env', 'SUDO_USER') }}" owner="{{ lookup('env', 'SUDO_USER') }}"
+
+- name: Copy env file to users home directory when in vagrant env
+  template: src="env.j2" dest="/home/{{ lookup('env', 'SUDO_USER') }}/env" owner="{{ lookup('env', 'SUDO_USER') }}" group="{{ lookup('env', 'SUDO_USER') }}"
+
+- name: Reload environment vars
+  shell: source /home/{{ lookup('env', 'SUDO_USER') }}/.bash_profile

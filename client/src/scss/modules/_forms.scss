@@ -1,0 +1,83 @@
+.form {
+
+    &.pay-deposit {
+        text-align: center;
+
+        .error-message {
+            padding: 16px 0;
+        }
+    }
+
+    #pay-deposit-container {
+        margin-top: 30px;
+        display: inline-block;
+
+        @include media($tablet) {
+            width: 50%;
+
+            li {
+                max-width: 400px;
+            }
+        }
+
+        li {
+            display: inline-block;
+            width: 100%;
+            text-align: left;
+            margin-right: 0;
+
+            &:last-child {
+                padding-left: 30px;
+
+                input {
+                    margin: 0 10px 0 -30px;
+                    display: inline-block;
+                }
+            }
+
+            label {
+                width: auto;
+            }
+        }
+
+        .button {
+            margin-top: 0;
+        }
+    }
+
+    .nectar {
+        background:$white url(../img/icons/nectar-logo.png) center top no-repeat;
+        padding: 80px 0 0;
+
+        @include media($tablet) {
+            background:$white url(../img/icons/nectar-logo.png) 0 0 no-repeat;
+            margin: 0;
+            background-size: contain;
+            padding: 5px 0 5px 60px;
+        }
+    }
+}
+
+.container.payment-failure {
+    text-align: center;
+    margin-bottom: 25px;
+
+    ul {
+        margin: 20px 0;
+        display: inline-block;
+        width: 220px;
+    }
+
+    li {
+        list-style-type: lower-alpha;
+        margin-bottom: 5px;
+        display: list-item !important;
+        text-align: left;
+    }
+
+    .btn {
+        display: inline-block;
+        margin: 20px 0 0;
+        text-decoration: none;
+    }
+}

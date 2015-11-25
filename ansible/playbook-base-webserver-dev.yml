@@ -1,0 +1,79 @@
+---
+- hosts: vagrant-web
+  sudo: true
+
+  vars:
+    php_pear_channels:
+      - pear.phing.info
+    php_pear_libraries:
+      - phing/phing
+      - Services_Amazon_S3-0.4.0
+    nodejs_npm_modules:
+        - gulp
+    nginx_user: "vagrant"
+
+  pre_tasks:
+    copy: src=/var/www/wlsm/current/build/wlsm_fastcgi_params_base dest=/etc/nginx/wlsm_fastcgi_params force=no owner=root group=root mode=0644
+    #copy: src=/var/www/wlsm/current/environments/dev/nginx/ssl/* dest=/etc/nginx/ssl/ force=no
+
+  roles:
+  - common
+#    - jdauphant.nginx
+#    - { role: foo_app_instance, dir: '/opt/a',  port: 5000 }
+  - role: jdauphant.ssl-certs
+    ssl_certs_common_name: "dev.wlsm.ents.io"
+  - role: jdauphant.nginx
+    nginx_configs:
+      ssl:
+       - ssl_certificate_key {{ssl_certs_privkey_path}}
+       - ssl_certificate     {{ssl_certs_cert_path}}
+    nginx_http_params: [
+    "sendfile on",
+    "access_log /var/log/nginx/access.log",
+    "error_log /var/log/nginx/error.log"
+    ]
+    nginx_sites:
+      default:
+        - listen *:80
+        - listen *:443 ssl default_server
+#        - ssl_certificate ssl/dev.wlsm.ents.io.cert
+#        - ssl_certificate_key ssl/dev.wlsm.ents.io.key
+        - server_name dev.wlsm.ents.io
+        - root /var/www/wlsm/current/web
+        - if ($ssl_protocol = "") {
+             rewrite ^/(.*) https://$server_name/$1 permanent;
+          }
+        - location / { try_files $uri @rewriteapp; }
+        - location @rewriteapp { rewrite ^(.*)$ /app_dev.php/$1 last; }
+        - location ~ \.php(/|$) {
+            include fastcgi_params;
+            include wlsm_fastcgi_params;
+            fastcgi_param PATH_INFO $fastcgi_path_info;
+            fastcgi_param SCRIPT_FILENAME $realpath_root$fastcgi_script_name;
+            fastcgi_param DOCUMENT_ROOT $realpath_root;
+            fastcgi_param PATH_TRANSLATED $document_root$fastcgi_path_info;
+            fastcgi_pass unix:/var/run/php5-fpm.sock;
+            fastcgi_split_path_info ^(.+\.php)(/.+)$;
+            fastcgi_intercept_errors on;
+          }
+        - error_log /var/log/nginx/wlsm.error.log
+        - access_log /var/log/nginx/wlsm.access.log
+
+  - kosssi.php
+  - { role: nbz4live.php-fpm,
+      php_fpm_pools: [
+          {name: www, user: vagrant, group: vagrant, listen.owner: vagrant, listen.group: vagrant, listen: /var/run/php5-fpm.sock}
+      ]
+    }
+  - darthwade.php-pear
+  - kosssi.composer
+  - DavidWittman.redis
+  - Stouts.nodejs
+  - alban.andrieu.xvbf
+  - malk.java8-oracle
+  - selenium
+  - mock-server
+
+
+
+

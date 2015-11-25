@@ -1,0 +1,516 @@
+#product-list-container {
+    min-height: 300px;
+    background:url(../img/icons/loader.gif) center center no-repeat;
+    position: relative;
+    z-index: 1;
+    margin-bottom: 60px;
+}
+
+.product-count {
+    text-align: center;
+    margin: 0 0 18px 0;
+    font-size: 1.6rem;
+}
+
+.container.flowers {
+
+    .product-list {
+
+        > li {
+            min-height: 350px;
+        }
+
+        .product-name {
+            min-height: 40px;
+        }
+    }
+}
+
+.plp {
+
+    .visual {
+        background-repeat: no-repeat;
+        background-position: center center;
+        background-size: cover;
+        height: 250px;
+        text-align: center;
+        padding-top: 70px;
+        position: relative;
+        margin-bottom: 130px;
+
+        .banner {
+            font-family: MaryAnnRegular, open-sans, sans-serif;
+            font-size: 1.4rem;
+            text-align: center;
+            line-height: 20px;
+            position: relative;
+            z-index: 1;
+            display: inline-block;
+            width: 86%;
+            margin-top: 125px;
+            color: $bodyText;
+            border-bottom: 1px solid $gold;
+            padding-bottom: 15px;
+
+            @include media($phablet) {
+                width: 70%;
+                margin-top: 0;
+                text-shadow: 5px 0px 5px #000, 0 0 3px black;
+                color: $white;
+                border: 0;
+                font-size: 1.9rem;
+            }
+
+            @include media($tablet) {
+                width: 54%;
+            }
+        }
+
+        &.turkey-poultry-game {
+
+            .banner {
+                margin-top: 100px;
+
+                @include media($phablet) {
+                    margin-top: 0;
+                }
+            }
+        }
+
+        &.desserts-cheese {
+            @include media($mobile) {
+                h1 {
+                    width: 200px;
+                }
+            }
+        }
+
+        @include media($phablet) {
+            margin-bottom: 20px;
+        }
+
+        .overlay {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-color: #000;
+            opacity: .3;
+            top: 0;
+        }
+
+        h1 {
+            font-family:"Frontage W00 Regular";
+            text-shadow: 5px 0px 15px #000, 0 0 3px black;
+            color: $white;
+            margin-top: 35px;
+            position: relative;
+            z-index: 1;
+            width: 85%;
+            display: inline-block;
+            font-size: 2rem;
+
+            @include media($phablet) {
+                margin-top: 0;
+                font-size: 2.4rem;
+            }
+
+            @include media($tablet) {
+                font-size:4rem;
+            }
+        }
+
+        &.sharing-food {
+            background-image:url(../img/product-list/sharing_food_desktop.jpg);
+        }
+
+        &.turkey-poultry-game {
+            background-image:url(../img/product-list/poultry_game_desktop.jpg);
+        }
+
+        &.roasts-mains {
+            background-image:url(../img/product-list/roasts_mains_desktop.jpg);
+        }
+
+        &.accompaniments {
+            background-image:url(../img/product-list/accompaniments_desktop.jpg);
+        }
+
+        &.desserts-cheese {
+            background-image:url(../img/product-list/desserts_cheese_desktop.jpg);
+        }
+
+        &.floral {
+            background-image:url(../img/product-list/floral_desktop.jpg);
+        }
+    }
+}
+
+.product-list {
+    background-color: #f8f8f8;
+    margin-right: auto !important;
+
+    @include media($phablet) {
+        float: none !important;
+    }
+
+    > li {
+        background-color: #fff;
+        margin-bottom: .6em;
+        text-align: center;
+        min-height: 450px;
+        position: relative;
+
+        @include media($desktop) {
+            margin-bottom: 2em;
+        }
+    }
+
+    .product-name {
+        font-family: MaryAnnRegular, open-sans, sans-serif;
+        font-size: 1.4rem;
+        color: $bodyText;
+        width: 80%;
+        margin: 0 auto 10px;
+        font-weight: bold;
+
+        @include media($phablet) {
+            font-size: 1.6rem;
+        }
+    }
+
+    a {
+        display: block;
+        text-decoration: none;
+        margin-bottom: $marginBottom;
+        min-height: 60px;
+
+        .product {
+            width: 100%;
+        }
+    }
+
+    .icon {
+        display: inline-block;
+        width: 25px;
+        margin: 0 3px 5px;
+        vertical-align: middle;
+
+        &.rspca,
+        &.woodlands-trust {
+            width: 40px;
+            margin: 0;
+        }
+    }
+
+    .tooltip-icon-grey{
+      margin-right: 0;
+    }
+
+    .spacer {
+        width:1px;
+        height : 40px;
+        margin: 0
+    }
+
+    .price-per {
+        font-size: 1.6rem;
+        color: $darkGrey;
+        font-family: MaryAnnBold, open-sans, sans-serif;
+        margin-top: 10px;
+
+        span {
+            font-size: 1.6rem;
+            font-family: Arial, open-sans, sans-serif;
+            font-weight: bold;
+            text-transform: lowercase;
+        }
+
+        &.serves {
+            span {
+                font-size: 1.2rem;
+                font-weight: normal;
+            }
+        }
+    }
+
+    .weight-unit {
+        text-transform: lowercase;
+    }
+
+    .select-container {
+        position: relative;
+        height: 32px;
+        margin-bottom: 15px;
+        z-index: 15;
+
+        .selector {
+            width: 0;
+            height: 0;
+            border-left: 5px solid transparent;
+            border-right: 5px solid transparent;
+            border-top: 5px solid #000;
+            position: absolute;
+            top: 12px;
+            right: 7px;
+            cursor: pointer;
+        }
+    }
+
+    .select {
+        height: 30px;
+        border-radius: $borderRadius;
+        border: 1px solid #999;
+        width: 80%;
+        background-color: $white;
+        padding-left: 0;
+        margin: 0 auto 0;
+        overflow: hidden;
+        position: absolute;
+        left: 10%;
+        z-index: 1;
+
+        &.open {
+            height: auto;
+        }
+
+        &.single {
+            border: 0;
+
+            li.selected {
+                cursor: default;
+
+                span {
+                    font-size: 1.3rem;
+                }
+            }
+
+            .selector {
+                display: none;
+            }
+        }
+
+        li {
+            width: auto;
+            line-height: 28px;
+            cursor: pointer;
+            display: none;
+
+            &.selected {
+                display: block;
+                font-size: 1.1rem;
+                border-bottom: 1px solid #999;
+
+                span {
+                    display: inline;
+                    color: #333;
+                    font-size: 1.1rem;
+                }
+            }
+
+            span.serves {
+                display: none;
+            }
+
+            @include media($desktop) {
+                span.serves {
+                    display: inline-block;
+                }
+            }
+
+            &.disabled,
+            &.disabled span {
+                color: $mediumGrey;
+                cursor: default;
+            }
+
+            &:last-child {
+                border: 0;
+            }
+        }
+    }
+
+    .btn {
+        position: absolute;
+        bottom: 30px;
+        margin: 0;
+        left: 10%;
+        z-index: 1;
+        width: 80%;
+        padding: 5px 0;
+    }
+
+    .btn[disabled="disabled"],
+    .btn[disabled="true"],
+    .btn.disabled {
+        background-color:#d691ad;
+        color:#ebcdd9;
+        cursor:default;
+        padding-top:4px;
+    }
+
+    .exceeded-max-quantity,
+    .is-out-of-stock {
+        font-family: MaryAnnRegular, open-sans, sans-serif;
+        background-color: #ddd;
+        padding: 25px 18px 25px 40px;
+        text-align: left;
+        font-size: 1.6rem;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        z-index: -1;
+        opacity: 0;
+        transition: opacity .3s;
+        min-height: 70px;
+
+        @include media($desktop) {
+            text-align: center;
+        }
+
+
+        span {
+            font-size: 1.6rem;
+        }
+
+        &.visible {
+            opacity: 1;
+            z-index: 2;
+        }
+
+        em {
+            cursor: default;
+            margin-left: -24px;
+            margin-top: 2px;
+            @include media($desktop) {
+                margin-left: -20px;
+            }
+        }
+    }
+
+    .is-out-of-stock {
+        text-align: center;
+    }
+
+    .range,
+    span {
+        display: inline-block;
+        font-size: 1.3rem;
+    }
+
+    .range, .grey {
+        display: inline-block;
+        color: #999;
+    }
+}
+
+.turkey-poultry-game {
+
+    .product-list > li {
+        min-height: 470px;
+
+        @include media($phablet) {
+            min-height: 526px;
+        }
+    }
+
+    .product-name {
+        min-height: 92px;
+
+        @include media($phablet) {
+            min-height: 110px;
+        }
+    }
+}
+
+.roasts-mains {
+    .product-list > li {
+        min-height: 475px;
+
+        @include media($phablet) {
+            min-height: 505px;
+        }
+    }
+
+    .product-name {
+        min-height: 86px;
+    }
+}
+
+.sharing-food {
+    .product-list > li {
+        min-height: 415px;
+
+        @include media($phablet) {
+            min-height: 438px;
+        }
+    }
+
+    .product-name {
+        min-height: 74px;
+
+        @include media($phablet) {
+            min-height: 62px;
+        }
+    }
+}
+
+.desserts-cheese,
+.accompaniments {
+    .product-list > li {
+        min-height: 415px;
+
+        @include media($phablet) {
+            min-height: 500px;
+        }
+
+        .hide-price {
+            display:none;
+        }
+    }
+
+    .product-name {
+        min-height: 75px;
+
+        @include media($phablet) {
+            min-height: 86px;
+        }
+    }
+}
+
+.desserts-cheese {
+    @include media($mobile) {
+
+        .product-name {
+            min-height: 56px;
+        }
+    }
+}
+
+.floral {
+    .product-list > li {
+        min-height: 312px;
+
+        @include media($phablet) {
+            min-height: 340px;
+        }
+    }
+
+    .product-name {
+        min-height: 45px;
+    }
+
+    .spacer {
+        display: none;
+    }
+}
+
+@include media($tablet) {
+    .plp {
+        .turkey-poultry-game {
+            h1 {
+                font-size: 3.2rem;
+            }
+        }
+    }
+}

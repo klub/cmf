@@ -1,0 +1,14 @@
+fastcgi_param APPLICATION_ENV dev;
+fastcgi_param SYMFONY__DATABASE_HOST localhost;
+fastcgi_param SYMFONY__DATABASE_NAME wlsm;
+fastcgi_param SYMFONY__DATABASE_NAME_TEST wlsm_test;
+fastcgi_param SYMFONY__DATABASE_USER wlsm;
+fastcgi_param SYMFONY__DATABASE_PASSWORD wlsm;
+fastcgi_param SYMFONY__DATABASE_PORT 5432;
+
+fastcgi_param SYMFONY__MAILER_TRANSPORT smtp;
+fastcgi_param SYMFONY__MAILER_HOST 127.0.0.1;
+fastcgi_param SYMFONY__MAILER_USER null;
+fastcgi_param SYMFONY__MAILER_PASSWORD null;
+
+fastcgi_param SYMFONY__APP_BASE_URL https://dev.wlsm.ents.io;

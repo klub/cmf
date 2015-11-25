@@ -1,0 +1,15 @@
+---
+- hosts: vagrant-web
+  sudo: true
+
+  roles:
+    - common
+    - php
+    - phpfpm
+    - composer
+    - memcached
+    - nodejs
+    - jdauphant.nginx
+
+
+

@@ -1,0 +1,13 @@
+body { padding-top: 70px; }
+
+.list-group-item {
+  a {
+    font-size: 25px;
+  }
+}
+
+.breadcrumb > li + li:before {
+  color: #ccc;
+  content: "/ ";
+  padding: 0 5px;
+}

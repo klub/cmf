@@ -1,0 +1,289 @@
+#out-of-stock-banner {
+    margin: 0;
+    padding: 14px 0;
+    font-size: 1.6rem;
+    font-weight: bold;
+    background-color: #FFF3E0;
+    clear: left;
+    display: none;
+
+    &.visible {
+        display: block;
+    }
+
+    p {
+        margin: 0 auto;
+        padding: 8px 0 8px 8px;
+        font-family: MaryAnnMedium, open-sans, sans-serif;
+    }
+}
+
+.out-of-stock {
+    color: $lightGrey;
+}
+
+.basket-container,
+.order-summary-container {
+    padding: 15px;
+    margin: 15px 0;
+    background:$white;
+
+    .loading {
+        min-height: 100px;
+        background: $white url(../img/icons/loader.gif) center center no-repeat;
+    }
+
+    h1 {
+        margin-top: 0;
+        padding-bottom: 10px;
+        border-bottom: 1px solid $listItemBorder;
+        font-size: 2rem;
+
+        @include media($desktop) {
+            font-size: 3rem;
+        }
+
+        #basket-item-count {
+            display: inline-block;
+            float: right;
+            font-size: 1.8rem;
+            margin-top: 0;
+
+            @include media($desktop) {
+                margin-top: 12px;
+            }
+        }
+    }
+
+    h2 {
+        border-bottom: 1px solid $listItemBorder;
+        padding-bottom: 10px;
+    }
+
+    .basket,
+    .summary {
+
+        > ul {
+            background-color: $white;
+        }
+
+        .item {
+            padding-bottom: 20px;
+            margin-bottom: 20px;
+            border-bottom: 1px solid $listItemBorder;
+            clear:both;
+
+            h3 {
+                margin: 0 0 5px;
+            }
+
+            div {
+                display: table-cell;
+                vertical-align: top;
+            }
+
+            .name {
+                font-family: MaryAnnRegular, open-sans, sans-serif;
+            }
+
+            p {
+                clear: both;
+                font-size: 1.3rem;
+
+                &.remove button {
+                    text-decoration: underline;
+                    color: $darkGrey;
+                    font-size: 1.2rem;
+                    border: 0;
+                    background-color: $white;
+                    padding: 0;
+
+                    @media screen
+                    and (min-device-width: 768px) 
+                    and (orientation: landscape) {
+                      padding: 0 6px;
+                    }
+                }
+            }
+
+            .thumbnail {
+
+                img {
+                    width: 100%;
+                }
+            }
+        }
+
+        .quantity {
+            text-align: left;
+            position: relative;
+            font-family: MaryAnnRegular, open-sans, sans-serif;
+            clear: both;
+            width: 100%;
+
+            .mobile_shim {
+                height: 20px;
+            }
+
+            @include media($tablet) {
+                float: right;
+                text-align: right;
+                clear: none;
+                width: auto;
+
+                .mobile_shim {
+                    display: none;
+                }
+
+                > div {
+                    float: right;
+                }
+            }
+
+
+            .item-count{
+                display: inline-block;
+                width: 40px;
+                border: 1px solid #333;
+                background-color: $white;
+                text-align: center;
+                height: 26px;
+                padding: 2px;
+                min-height: 0;
+                margin: 0 5px;
+                height: 26px;
+                border-radius: 20px;
+                font-size: 1.5rem;
+            }
+
+            .dec,
+            .inc {
+                width:25px;
+                display: inline-block;
+                border-radius: 50%;
+                height: 25px;
+                margin: 0;
+                vertical-align: bottom;
+                cursor: pointer;
+                border:none;
+
+
+                &.disabled {
+                    cursor: default;
+                }
+            }
+
+            .inc{
+                background:url(../img/plus-icon.png) no-repeat 50% 50% #ccc;
+                background-size:70%;
+            }
+
+            .dec {
+                background:url(../img/minus-icon.png) no-repeat 50% 50% #ccc;
+                background-size:70%;
+            }
+
+            .price {
+                margin: 10px 0;
+                font-size: 1.7rem;
+                font-weight: bold;
+            }
+
+            .max-quantity,
+            .is-out-of-stock {
+                font-size: 1.3rem;
+                color: $error;
+                position: static!important;
+                right: 0;
+                margin-bottom: 0;
+
+                @include media($tablet) {
+                    position: absolute;
+                }
+            }
+        }
+
+        .empty-basket {
+            font-size: 1.8rem;
+            min-height: 85px;
+            background-color: #fff;
+        }
+    }
+}
+
+.order-summary {
+
+    clear:both;
+    font-family: MaryAnnRegular, open-sans, sans-serif;
+
+    @include media($tablet) {
+        clear:none;
+        margin: 30px 0;
+    }
+
+    .inner {
+        padding: 20px;
+        text-align: center;
+        background-color: $bodyGrey;
+    }
+
+    h3 {
+        margin:0 0 15px;
+        font-size: 2.4rem;
+    }
+
+    h4 {
+        font-size: 1.4rem;
+        margin: 5px 0;
+    }
+
+    p {
+        font-size: 2rem;
+    }
+
+    .to-pay-now {
+        font-size: 2.4rem;
+        font-weight: bold;
+    }
+
+    .continue {
+        text-decoration: underline;
+        color: $mediumGrey;
+    }
+
+    .btn {
+        margin: 0;
+
+        @include media($tablet) {
+            width: 100%;
+        }
+
+        @include media($desktop) {
+            width: $buttonWidth;
+        }
+    }
+
+    .caveat {
+        padding: 10px 10px 10px 45px;
+        background-color: #E4F2FF;
+        text-align: left;
+        margin-top: 20px;
+        font-family: Arial, open-sans, sans-serif;
+
+
+        p{
+            font-size: 1.3rem;
+            margin: 0;
+        }
+
+        .tooltip-icon {
+            margin-left: -34px;
+            z-index: 1;
+        }
+    }
+
+    .btn.secondary{
+
+        margin-top:20px;
+    }
+}

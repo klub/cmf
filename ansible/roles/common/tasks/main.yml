@@ -1,0 +1,33 @@
+---
+- debug: msg="DEBUG {{ansible_os_family}}"
+
+- name: Setup hostname
+  hostname: name={{ hostname }}
+  when: hostname is defined
+
+- name: Install common services
+  apt: name={{ item }} state=installed
+  with_items:
+    - ntp
+    - screen
+    - vim
+    - git
+#    - python-pip
+#    - mysql
+    - telnet
+    - curl
+    - wget
+    - firefox
+    #- libselinux-python
+
+#- name: upgrade all packages
+#  yum: name=nginx state=latest
+#
+#- name: Install Python Boto (To connect to S3)
+#  pip: name=boto
+
+#- name: Generate /etc/hosts file
+#  template: src=hosts.j2 dest=/etc/hosts
+#
+#- include: vagrant-web.yml
+#  when: dev_env == "vagrant-web"

@@ -1,0 +1,315 @@
+.product-details-further-information {
+
+    @include media($desktop) {
+        .info-section{
+            @include span-columns(1 of 3);
+        }
+    }
+}
+
+.container {
+    @include outer-container(95%);
+
+    @include media($desktop) {
+        @include outer-container(980px);
+    }
+
+    .logo {
+        @include span-columns(6);
+        @include omega();
+    }
+
+    .mini-basket {
+        @include span-columns(6);
+        float:right;
+    }
+
+    &.breadcrumb {
+        li {
+            @include span-columns(4);
+        }
+    }
+
+    &.checkout {
+
+        li {
+            @include span-columns(12);
+        }
+
+        @include media($tablet) {
+            @include outer-container(620px);
+            li {
+                @include span-columns(6);
+                @include omega();
+            }
+
+            li:nth-child(even) {
+                float: right;
+            }
+        }
+
+        .tcs,
+        &.payment-failure {
+            li {
+                @include span-columns(12);
+            }
+        }
+
+    }
+
+    &.how-it-works {
+        ul {
+            @include span-columns(12);
+
+            li {
+                //@include span-columns(12);
+
+                @include media($tablet) {
+                    @include span-columns(3);
+                }
+            }
+        }
+    }
+
+    &.food-types {
+        .row {
+            @include row()
+        }
+
+        .wide,
+        .narrow {
+            @include span-columns(12);
+        }
+
+        @include media($tablet) {
+            .wide {
+                @include span-columns(8);
+            }
+
+            .narrow {
+                @include span-columns(4);
+            }
+        }
+    }
+
+    .product-list {
+        @include span-columns(12);
+
+        @include media($phablet) {
+            @include outer-container(480px);
+        }
+
+        @include media($tablet) {
+            @include outer-container(720px);
+        }
+
+        @include media($desktop) {
+            @include outer-container(100%);
+        }
+
+        > li {
+
+            @include media($mobile) {
+                @include span-columns(6);
+                @include omega(2n);
+            }
+
+            @include media($phablet) {
+                //@include omega-reset(2n);
+                @include span-columns(6);
+                @include omega(2n);
+            }
+
+            @include media($tablet) {
+                @include omega-reset(2n);
+                @include span-columns(4);
+                @include omega(3n);
+            }
+
+            @include media($desktop) {
+                @include omega-reset(3n);
+                @include span-columns(3);
+                @include omega(4n);
+            }
+        }
+    }
+
+    .copyright {
+        @include span-columns(12);
+    }
+
+    .basket-container,
+    .order-summary-container {
+        @include span-columns(12);
+
+        .thumbnail {
+            @include span-columns(2 of 8);
+        }
+
+        .name {
+            @include span-columns(6 of 8);
+            @include omega();
+
+        }
+
+        .mobile_shim {
+            @include span-columns(2 of 8);
+        }
+
+        .quantity {
+            @include span-columns(6 of 8);
+            @include omega();
+        }
+
+        @include media($tablet) {
+            @include span-columns(8);
+
+            .thumbnail {
+                @include span-columns(1 of 8);
+            }
+
+            .name {
+                @include span-columns(4 of 8);
+            }
+
+            .quantity,
+            p.out-of-stock {
+                @include span-columns(3 of 8);
+                @include omega();
+            }
+        }
+
+        @include media($desktop) {
+            @include span-columns(8);
+
+            .name {
+                @include span-columns(5 of 8);
+            }
+
+            .quantity,
+            p.out-of-stock {
+                @include span-columns(2 of 8);
+                @include omega();
+            }
+        }
+    }
+
+    &.confirmation {
+        @include media($tablet) {
+            @include outer-container(620px);
+        }
+    }
+
+    .order-summary {
+        @include media($tablet) {
+            @include span-columns(4);
+        }
+    }
+
+    .confirmation-summary {
+        li {
+            @include span-columns(12);
+
+            @include media($tablet) {
+                @include span-columns(4);
+            }
+        }
+    }
+
+    @include media($tablet) {
+        .order-summary-container {
+            @include span-columns(12);
+        }
+    }
+
+
+    &.nutrition {
+
+        @include media($tablet) {
+            .half {
+                @include span-columns(4 of 8);
+            }
+        }
+    }
+
+    &.preparation-and-safety {
+
+        @include media($desktop) {
+            .advice{
+                @include span-columns(1 of 3);
+            }
+        }
+    }
+}
+
+.footer {
+    @include span-columns(12);
+
+    @include media($phablet) {
+
+        .phablet-grouping {
+            @include span-columns(6);
+
+            .xmas {
+                @include span-columns(12);
+            }
+
+            .info {
+                @include span-columns(12);
+            }
+        }
+
+        .help {
+            @include span-columns(6);
+        }
+    }
+
+    @include media($tablet) {
+
+        .phablet-grouping {
+            @include span-columns(8);
+
+            .xmas {
+                @include span-columns(5);
+            }
+
+            .info {
+                @include span-columns(7);
+            }
+        }
+
+        .help {
+            @include span-columns(4);
+        }
+    }
+
+    @include media($desktop) {
+
+        .phablet-grouping {
+            @include span-columns(8);
+
+            .xmas {
+                @include span-columns(4);
+            }
+
+            .info {
+                @include span-columns(8);
+            }
+        }
+    }
+}
+
+.store_details_col {
+
+    @include media($desktop) {
+        @include span-columns(3 of 9);
+    }
+}
+
+.slot_details_col{
+
+    @include media($tablet) {
+
+        @include span-columns(3 of 9);
+    }
+}

@@ -1,0 +1,132 @@
+
+.footer {
+    background-color: #555;
+    padding: 0px;
+
+    @include media($phablet) {
+        padding:0 20px;
+    }
+
+    .container {
+        max-width:100%;
+
+
+    }
+
+    @include media($desktop) {
+        padding: 0;
+
+        .footer-section {
+            margin-top: 20px;
+        }
+    }
+
+    h2 {
+        font-size: 1.8rem;
+        margin-top:0px;
+        font-family:MaryAnnRegular;
+    }
+
+    h2, p, a {
+        color: $white;
+    }
+
+    li {
+        display: block;
+        line-height:25px;
+
+        a {
+            font-size: 1.4rem;
+        }
+    }
+
+    p {
+        margin-bottom: 5px;
+        font-size: 1.4rem;
+        font-family:arial;
+    }
+
+    .tel {
+        font-size: 2.6rem;
+    }
+
+    .footer-section {
+
+        &.help {
+            padding: 20px;
+
+            @include media($phablet) {
+                margin-top:20px;
+            }
+
+            @include media($tablet) {
+                padding:20px 0;
+            }
+
+            h2 {
+                margin: 0 0 10px 0px;
+            }
+
+            .lighter_grey_bc_color {
+                background-color:#666;
+                padding: 20px;
+
+                .here-to-help {
+                    margin-bottom:20px;
+                }
+
+                .tel {
+                    margin-bottom:20px;
+                }
+
+                .opening-hours {
+                    margin-bottom:20px;
+                }
+            }
+        }
+
+        &.xmas {
+            margin-top:20px;
+            padding:20px 20px 0 20px;
+
+            @include media($tablet) {
+                padding:0;
+                margin-top:40px;
+
+                li {
+                    line-height:25px;
+                    width:100%;
+                }
+            }
+        }
+
+        &.info {
+            padding:20px;
+            margin-top:20px;
+
+            @include media($tablet) {
+                padding:0;
+                margin-top:40px;
+
+                li {
+                    line-height: 25px;
+                    width:100%;
+                }
+            }
+        }
+    }
+
+    .copyright {
+        padding: 20px 0 40px 0;
+        text-align: center;
+        margin-bottom: 0;
+    }
+}
+
+.checkout .holding_sticky_header_placeholder {
+    height:69px;
+
+    @include media($tablet) {
+        height:82px;
+    }
+}

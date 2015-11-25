@@ -1,0 +1,199 @@
+.confirmation {
+    background-image: none;
+    font-size: 1.4rem;
+    margin-bottom: 20px;
+
+    .order-summary-container {
+        padding: 15px 0 0;
+        background-image: none;
+        margin-bottom: 20px;
+
+        @include media($desktop) {
+            margin-bottom: 40px;
+        }
+
+        h2 {
+            span {
+                float: right;
+            }
+        }
+
+        .totals {
+
+            font-size: 1.6rem;
+            font-family: MaryAnnBold, open-sans, sans-serif;
+            text-align: left;
+
+
+            p:first-child {
+
+                color: $mediumGrey;
+            }
+
+            span {
+
+                float: right;
+                margin-left: 75px;
+                text-align: right;
+            }
+
+            @include media($desktop) {
+                float: right;
+            }
+        }
+    }
+
+    .details {
+        text-align: center;
+        padding-bottom: 30px;
+        border-bottom: 1px solid #B9A774;
+
+        .confirmation {
+            font-size: 3.6rem;
+            clear: left;
+            margin: 0 0 30px;
+            font-weight: normal;
+        }
+    }
+
+
+    .green_tick{
+
+      width:22px;
+    }
+
+    .confirmation-summary {
+
+        background-color: $bodyGrey;
+        padding: 10px;
+        margin-bottom: 20px;
+
+        h3 {
+            color: $mediumGrey;
+            margin: 0;
+            font-size: 1.4rem;
+            font-family: MaryAnnMedium, open-sans, sans-serif;
+
+            @include media($desktop) {
+                margin:  0 0 5px;
+            }
+        }
+
+        > p {
+            margin-bottom: 0;
+
+        }
+
+        li {
+            display: inline-block;
+
+            p {
+                font-size: 2rem;
+                font-family: MaryAnnMedium, open-sans, sans-serif;
+
+                a {
+                    font-size: 1.3rem;
+                    text-decoration:underline;
+                    font-family: arial;
+                }
+            }
+
+            .address {
+                font-size: 1.4rem;
+                font-weight: normal;
+                font-family: arial;
+                display: inline-block;
+                color: $mediumGrey;
+
+                > span {
+                    display: block;
+
+                    &.road{
+                      margin: -10px 0 10px 0;
+                    }
+                }
+            }
+        }
+
+        .store-details {
+            display: none;
+
+
+            @include media($tablet) {
+                display: block;
+            }
+        }
+    }
+
+    .info {
+        width: 55%;
+        font-size: 1.3rem;
+        margin: 0 0 15px;
+        display: inline-block;
+
+        .tooltip-icon {
+            margin-left: -35px;
+        }
+
+        strong {
+            font-family: MaryAnnBold, open-sans, sans-serif;
+        }
+    }
+
+    p {
+        clear: both;
+    }
+
+    .home {
+        text-align: center;
+        font-size: 3rem;
+        clear: left;
+        margin: 30px auto 30px;
+
+        p {
+            margin: 0;
+        }
+    }
+
+    .btn {
+        text-decoration: none;
+        cursor: pointer;
+        display: inline-block;
+        text-align: center;
+    }
+
+
+    .quantity div {
+        float: right;
+    }
+}
+
+.amend-confirm{
+  text-align: center;
+  font-size: 3rem;
+  clear: left;
+  margin: 30px auto 30px;
+
+  p {
+      margin: 0;
+  }
+}
+
+.checkout-option{
+
+  .bordered{
+    border-bottom: 1px solid #c0af85;
+  }
+
+  .left{
+
+    @include media($tablet){
+      margin-right: 20px!important;
+    }
+    @include media($desktop){
+
+      float:left;
+      margin-right: 0;
+    }
+  }
+}

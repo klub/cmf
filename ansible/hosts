@@ -1,0 +1,5 @@
+[vagrant-db]
+dev.wlsm.ents.io ansible_connection=local
+
+[vagrant-web]
+127.0.0.1 ansible_connection=local

@@ -1,0 +1,143 @@
+/// Mixin for creating css triangle arrows
+/// @name arrow
+/// @param {Pixel value} size [10px] Triangular base width
+/// @param {Option} dir ["down"] Arrow direction - "up" | "down" | "left" | "right"
+/// @param {#hex/rgba} colour [white] Arrow colour
+/// @param {0-1 Decimal} angle [0.7] Decimalised angle value
+/// @example scss - Include
+///  .arrow{
+///     @include arrow(10px,'down',red,0.7);
+///  }
+///
+/// @example css - Output
+///  .arrow {
+///    width: 0;
+///    height: 0;
+///    border-left: 7px solid transparent;
+///    border-right: 7px solid transparent;
+///    border-top: 10px solid red;
+/// }
+///
+
+@mixin arrow($size:10px,$dir:"down",$colour:white,$angle:0.7){
+
+	width: 0; 
+	height: 0;
+
+	@if $dir == "up"{
+		border-left: $size*$angle solid transparent;
+		border-right: $size*$angle solid transparent;
+		border-bottom: $size solid $colour;
+	}
+
+	@if $dir == "down"{
+		border-left: $size*$angle solid transparent;
+		border-right: $size*$angle solid transparent;	
+		border-top: $size solid $colour;
+	}
+
+	@if $dir == "right"{
+		border-top: $size*$angle solid transparent;
+		border-bottom: $size*$angle solid transparent;	
+		border-left: $size solid $colour;
+	}
+
+	@if $dir == "left"{
+		border-top: $size*$angle solid transparent;
+		border-bottom: $size*$angle solid transparent;
+		border-right:$size solid $colour;
+	}
+}
+
+// ------------------------------------------------------
+
+/// Easlily generate animation keyframes with this mixin. 
+/// The sass "@content" directive is used to wrap the mixin's 
+/// content with the various vendor prefixes. 
+/// @name keyframes
+/// @param {String} name [] Animation name
+/// @param {Array} vendors ["-webkit-" "-moz-" "-o-" ""] required vendor prefixes
+/// @example scss - Include
+///  @include keyframes (wobble,"-webkit-" "-moz-" ""){
+///  	0%{
+///  		top: 0px
+///  	}
+///  	33%{
+///  		top: -5px
+///  	}
+///  	66%{
+///  		top: 5px
+///  	}
+///  	100%{
+///  		top: 0px
+///  	}
+///  }
+/// @example css - Output
+///  @-webkit-keyframes wobble {
+///    0% {
+///      top: 0px;
+///    }
+///    33% {
+///      top: -5px;
+///    }
+///    66% {
+///      top: 5px;
+///    }
+///    100% {
+///      top: 0px;
+///    }
+///  }
+///  @-moz-keyframes wobble {
+///    0% {
+///      top: 0px;
+///    }
+///    33% {
+///      top: -5px;
+///    }
+///    66% {
+///      top: 5px;
+///    }
+///    100% {
+///      top: 0px;
+///    }
+///  }
+///  @keyframes wobble {
+///    0% {
+///      top: 0px;
+///    }
+///    33% {
+///      top: -5px;
+///    }
+///    66% {
+///      top: 5px;
+///    }
+///    100% {
+///      top: 0px;
+///    }
+///  }
+///
+
+@mixin keyframes($animationName, $vendors : "-webkit-" "-moz-" "-o-" "") {
+
+	@if match($vendors , "-webkit-") == "-webkit-"{
+		@-webkit-keyframes #{$animationName} {
+	        @content;
+	    }
+	}
+	@if match($vendors , "-moz-") == "-moz-"{
+		@-moz-keyframes #{$animationName} {
+	        @content;
+	    }
+	}
+
+	@if match($vendors , "-o-") == "-o-"{
+		@-o-keyframes #{$animationName} {
+	        @content;
+	    }
+	}
+	@if match($vendors , "") == ""{
+		@keyframes #{$animationName} {
+	        @content;
+	    }
+	}
+}

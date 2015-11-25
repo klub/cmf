@@ -1,0 +1,3 @@
+selenium_jar_dir: /opt/selenium
+selenium_version_major_minor_bug: 2.47.1
+selenium_version_major_minor: 2.47

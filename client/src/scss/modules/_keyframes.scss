@@ -1,0 +1,39 @@
+  @-webkit-keyframes flash {
+    0%{
+		background-color:#eee;
+	}
+
+	18%{
+		background-color:#eee;
+	}
+
+	100%{
+		background-color:white;
+	}
+  }
+  @-moz-keyframes flash {
+    0%{
+		background-color:#eee;
+	}
+
+	18%{
+		background-color:#eee;
+	}
+
+	100%{
+		background-color:white;
+	}
+  }
+  @keyframes flash {
+    0%{
+		background-color:#eee;
+	}
+
+	18%{
+		background-color:#eee;
+	}
+
+	100%{
+		background-color:white;
+	}
+  }

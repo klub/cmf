@@ -1,0 +1,611 @@
+.product-details {
+    .hero-overlay-container{
+        margin-bottom:20px;
+
+        @include media($tablet) {
+            position:absolute;
+            width:100%;
+            max-width:940px;
+            top:135px;
+        }
+    }
+
+    @include media($tablet) {
+        .hero-overlay {
+            position:relative;
+        }
+    }
+
+    .back-to-list{
+        display:none;
+
+        @include media($tablet) {
+            display:block;
+            position:absolute;
+            left:0px;
+            color:$white;
+            cursor:pointer;
+        }
+    }
+
+    .add-to-trolley-container {
+        background-color:$white;
+        text-align:center;
+        padding:20px;
+        border-bottom:1px solid $gold;
+        margin-left: auto;
+        margin-right: auto;
+        width:90%;
+        opacity: 0;
+        transition: opacity .3s;
+        position: relative;
+
+        .exceeded-max-quantity,
+        .is-out-of-stock {
+            text-align: center;
+            min-height: 0;
+            padding: 18px 18px 18px 38px;
+
+            @include media($tablet) {
+                padding: 23px 18px 23px 38px;
+            }
+        }
+
+        .is-out-of-stock {
+            text-align: center;
+        }
+
+        &.visible {
+            opacity: 1;
+        }
+
+        @include media($tablet) {
+            width:100%;
+        }
+
+        h1 {
+            font-size:2.4rem;
+            margin-top:0;
+            font-weight:normal;
+
+            @include media($tablet) {
+                font-size: 3rem;
+                min-height: 165px;
+                margin-bottom: 0;
+            }
+        }
+
+        .select-container {
+            margin-bottom: 10px;
+        }
+
+        .select {
+            width: 220px;
+            position: relative;
+            left: auto;
+        }
+
+        .btn {
+            width: 220px;
+            left: 85px;
+            border-top: 20px;
+            position: static;
+
+            @include media($tablet) {
+                position: absolute;
+            }
+        }
+
+        @include media($tablet) {
+            width:390px;
+            height: 350px;
+            position:absolute;
+            right:25px;
+            top:25px;
+            border-right:1px solid $listItemBorder;
+            border-bottom:1px solid $listItemBorder;
+        }
+
+        @include media($desktop) {
+            right: 0;
+        }
+
+        .price-per,
+        .price-per span {
+            color: $bodyText;
+            font-family: Arial, Helvetica, sans-serif;
+            margin-top: 0;
+        }
+
+        .hide-price {
+            display:none;
+        }
+    }
+
+    .description {
+        text-align:center;
+        padding-bottom:30px;
+        border-bottom:1px solid $gold;
+
+        &.container {
+
+            @include media($desktop) {
+                max-width:940px;
+                width:100%;
+                padding-left:10px;
+                padding-right:10px;
+            }
+        }
+
+        h2 {
+            font-size:2.5rem;
+            font-weight:normal;
+            margin-top:45px;
+
+            @include media($desktop) {
+                font-size:3rem;
+            }
+        }
+
+        h3 {
+            font-weight: bold;
+            margin-left: 30px;
+        }
+
+        h3,
+        p {
+            font-family: Arial, Helvetica, sans-serif;
+            display: inline-block;
+        }
+
+        .desc {
+            font-family: MaryAnnRegular, open-sans, sans-serif;
+            font-size: 1.7rem;
+            margin: 0 20% 30px;
+        }
+
+        p {
+            font-size: 1.6rem;
+            margin-bottom:20px;
+        }
+
+        p:nth-child(4) {
+            img:first-child {
+                margin-right:20px;
+            }
+        }
+
+        p:nth-child(1n+5) {
+            display:inline-block;
+            font-size:1.25em;
+        }
+
+        p:nth-child(5) {
+            margin-right:20px;
+        }
+
+        .item-code {
+            display: none;
+            margin-right: 0;
+
+            &.first,
+            &.visible {
+                display: inline-block;
+            }
+        }
+
+        @include media($desktop) {
+
+            h3 {
+                font-size:1.8rem;
+            }
+        }
+    }
+
+    p.icons {
+        display: block;
+
+        img {
+            width: 50px;
+            vertical-align: middle;
+
+            &.rspca {
+                width: 60px;
+            }
+
+            &.woodland-trust {
+                width: 80px;
+                margin-left: -10px;
+            }
+        }
+    }
+
+    .nutrition {
+        margin-bottom:30px;
+        padding-top:20px;
+        width:90%;
+
+        .half {
+            margin-top:15px;
+        }
+
+        .centred{
+
+            text-align: center;
+
+            @include media($tablet) {
+
+                margin: 0 auto;
+                width:60%;
+            }
+
+            button{
+
+                border:none;
+                background-color:white;
+                cursor: pointer;
+                text-decoration: underline;
+                font: {
+                    size:1.4rem;
+                }
+            }
+        }
+
+        &.container {
+            @include media($desktop) {
+                max-width:940px;
+                width:100%;
+                padding-left:10px;
+                padding-right:10px;
+            }
+        }
+
+        &.accordian{
+
+
+            .more-info, .close-accordian{
+                display: none;
+            }
+
+            .open-accordian{
+                display: inline;
+            }
+
+            &.open{
+
+                .more-info, .close-accordian{
+                    display: inline;
+                }
+
+                .open-accordian{
+                    display: none;
+                }
+            }
+        }
+
+        h2 {
+            text-align:center;
+            font-size:2.5rem;
+            font-weight:normal;
+
+            @include media($desktop) {
+                font-size:3rem;
+            }
+        }
+
+        h3 {
+            font-size:1.6rem;
+            color:#333;
+            margin:0 0 5px;
+            font-family: MaryAnnBold;
+        }
+
+        p {
+            font-size: 1.3rem;
+            line-height: 1.5em;
+            font-family: arial, sans-serif;
+        }
+
+        button, strong{
+            font-family: arial, sans-serif;
+        }
+
+        .traffic-lights-label {
+            background-color:$white;
+            border-radius:7px;
+            padding:5px 2px 10px 2px;
+            text-align:center;
+            overflow:hidden;
+            margin-bottom:20px;
+            margin-top:20px;
+
+            .each-50g-serving {
+                margin:0;
+            }
+
+            ul {
+                width: 290px;
+                margin-left: auto;
+                margin-right: auto;
+
+                @include media($phablet) {
+                    width: auto;
+                    max-width: 440px;
+
+                }
+            }
+
+            .reference-intakes-notice {
+                background-color:$white;
+                border-radius:10px;
+                clear:both;
+                font-weight:bold;
+                font-size:14px;
+                margin:0;
+            }
+
+            @include media($desktop) {
+                width:465px;
+            }
+        }
+
+        .traffic-light {
+            display: inline-block;
+            width: 18%;
+            margin-right: 0.2%;
+            margin-bottom: 20px;
+
+            &:last-child {
+                margin-right:0;
+            }
+
+            .traffic-light-body {
+                background-color:$white;
+                border:3px solid $white;
+                overflow:hidden;
+                border-radius: 45px;
+                padding: 20px 0px;
+                font-weight:bold;
+                height: 120px;
+
+                @include media($phablet) {
+                    height: 140px;
+                }
+
+                &.black-border {
+                    border:1px solid #000;
+
+                    .reference-intake-percentage-border {
+                        margin-top: 6px;
+                    }
+
+                }
+
+                &.green-label {
+                    background-color:$traffic-lights-green;
+                    border:1px solid $white;
+                }
+
+                &.red-label {
+                    background-color:$traffic-lights-red;
+                    border:1px solid $white;
+                }
+
+                &.amber-label {
+                    background-color:$traffic-lights-orange;
+                    border:1px solid $white;
+                }
+
+                .name {
+                    font-size:.8rem;
+                    margin-top: 8px;
+                    @include media($phablet) {
+                        font-size:1.2rem;
+                        margin-top: 8px;
+                    }
+                    @include media($tablet) {
+                        font-size:1rem;
+                    }
+                    @include media($desktop) {
+                        font-size:1.2rem;
+                    }
+                }
+
+                .energy {
+
+                }
+
+                .calories {
+                    margin-bottom:2px;
+                }
+
+                .grams {
+                    margin-bottom:9px;
+                    font-size: 1.6rem;
+                    padding:2px 0px;
+                    @include media($phablet) {
+                        font-size: 1.8rem;
+                    }
+                }
+
+                .reference-intake-percentage,
+                .reference-intake-percentage-border {
+                    width: 88%;
+                    margin: 15px auto 0;
+                    border-radius: 15px;
+                    border:1px solid $white;
+                    background-color:$white;
+                    font-size:1.4rem;
+                    padding-top: 2px;
+                    @include media($phablet) {
+                        font-size: 1.8rem;
+                    }
+                }
+
+                .reference-intake-percentage-border {
+                    border:1px solid #000;
+                    margin-left: auto;
+                    background-color:$white;
+                    margin-top: 10px;
+                }
+            }
+        }
+
+        table, th, td {
+            border: 1px solid $listItemBorder;
+        }
+
+        table {
+            width:100%;
+            background-color:$white;
+            font-size:1.2rem;
+            margin-bottom:20px;
+            font-family: arial;
+
+            th, td {
+                padding:5px;
+            }
+
+            th {
+                font-weight:bold;
+                text-align:center;
+            }
+
+            td:not(:first-child) {
+                text-align:center;
+            }
+
+            td:first-child {
+                font-weight:bold;
+            }
+
+            tr:nth-child(even) {
+                background-color: #F8F8F8;
+            }
+
+            .amber_td {
+                background-color:$traffic-lights-orange;
+                color:$white;
+            }
+
+            .green_td {
+                background-color:$traffic-lights-green;
+                color:$white;
+            }
+
+            .red_td {
+                background-color:$traffic-lights-red;
+                color:$white;
+            }
+
+            .for-adult {
+                display:none;
+            }
+
+            @include media($desktop) {
+
+                th {
+                    background-color: #F8F8F8;
+                }
+
+                tr:nth-child(even) {
+                    background-color: #FFFFFF;
+                }
+
+                .for-adult {
+                    display:block;
+                }
+
+                .per-serving {
+                    display:table-cell;
+                }
+            }
+        }
+    }
+
+    .preparation-and-safety {
+        margin-bottom:30px;
+        border-top:1px solid $gold;
+        padding-top:20px;
+        width:90%;
+
+        &.container {
+            @include media($desktop) {
+                max-width:940px;
+                width:100%;
+                padding-left:10px;
+                padding-right:10px;
+            }
+        }
+
+        h2 {
+            font-size:2.5rem;
+            text-align:center;
+            font-weight:normal;
+
+            @include media($desktop) {
+                font-size:3rem;
+            }
+        }
+
+        h3 {
+            font-size:1.6rem;
+            color:#333;
+            margin-bottom:5px;
+            font-family: MaryAnnBold;
+        }
+
+        p {
+            font-size: 1.2rem;
+            line-height: 20px;
+        }
+    }
+}
+
+.product-details-further-information {
+    background-color:#eee;
+    padding-top:20px;
+    padding-bottom:30px;
+    overflow:hidden;
+
+    .inner-container {
+        width:90%;
+        margin-right:auto;
+        margin-left:auto;
+
+        @include media($desktop) {
+            max-width:920px;
+            width:100%;
+        }
+    }
+
+    h2 {
+        font-size:2.5rem;
+        text-align:center;
+        font-weight:normal;
+
+        @include media($desktop) {
+            font-size:3rem;
+        }
+    }
+
+    h3 {
+        font-size:1.5rem;
+        color:#333;
+        margin-bottom:5px;
+        font-family: MaryAnnBold;
+    }
+
+    p {
+        font-size: 1.3rem;
+        line-height: 20px;
+    }
+}
+
+@include media($tablet) {
+    .amend {
+        .add-to-trolley-container {
+            top: 90px;
+        }
+    }
+}

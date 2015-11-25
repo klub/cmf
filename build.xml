@@ -1,0 +1,623 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<project name="wlsm" description="Sainsburys Waste Less Save More" default="build:app" >
+
+    <property environment="env"/>
+    <property name="app.vendor.dir.delete" value="true" />
+    <property name="app.env.type" value="ci" />
+
+    <!-- ============================================ -->
+    <!-- Get Git hash                -->
+    <!-- ============================================ -->
+    <target name="build:get-git-hash">
+        <echo msg="Get Git hash" />
+        <exec command="git log -n 1 --pretty=format:%H" outputProperty="git.commit.hash" />
+    </target>
+
+    <!-- ============================================ -->
+    <!-- Generates paramaters.yml                    -->
+    <!-- ============================================ -->
+    <target name="build:params" depends="build:get-git-hash">
+        <echo msg="Generating 'parameters.yml'" />
+        <copy file="./app/config/parameters.yml.dist" tofile="./app/config/parameters.yml" overwrite="true" >
+            <filterchain>
+                <replacetokens begintoken="#" endtoken="#">
+                    <token key="git_hash" value="${git.commit.hash}" />
+                </replacetokens>
+            </filterchain>
+        </copy>
+    </target>
+
+    <!-- ============================================ -->
+    <!-- Generates paramaters_test.yml                    -->
+    <!-- ============================================ -->
+    <target name="build:params:test" depends="build:get-git-hash">
+        <echo msg="Generating 'parameters_test.yml'" />
+        <copy file="./app/config/parameters_test.yml.dist" tofile="./app/config/parameters_test.yml" overwrite="true">
+            <filterchain>
+                <replacetokens begintoken="#" endtoken="#">
+                    <token key="git_hash" value="${git.commit.hash}" />
+                </replacetokens>
+            </filterchain>
+        </copy>
+    </target>
+
+    <!-- ============================================ -->
+    <!-- Update App version hash (git hash)
+    <!- ============================================ -->
+    <target name="build:app:version-update" depends="build:get-git-hash">
+        <echo msg="Updating App version hash (git hash)" />
+        <copy file="./version.txt.dist" tofile="./version.txt" overwrite="true">
+            <filterchain>
+                <replacetokens begintoken="#" endtoken="#">
+                    <token key="git_hash" value="${git.commit.hash}" />
+                </replacetokens>
+            </filterchain>
+        </copy>
+    </target>
+
+
+    <!-- ============================================ -->
+    <!-- Install PHP dependencies (composer)          -->
+    <!-- ============================================ -->
+    <target name="build:php-dependencies" depends="build:params">
+        <echo msg="Installing PHP dependencies (composer install)" />
+        <if>
+            <istrue value="${app.vendor.dir.delete}" />
+            <then>
+                <echo message="DELETING VENDOR DIRECTORY" />
+                <delete dir="./vendor"/>
+            </then>
+        </if>
+        <exec command="/usr/local/bin/composer install --optimize-autoloader --prefer-dist" logoutput="true" checkreturn="true" passthru="true" />
+        <!-- "prefer-source" -->
+    </target>
+
+
+    <!-- Build web assets -->
+    <target name="build:frontend" >
+        <!-- call Gulp, transpile sass files, browserify, etc -->
+        <exec command="sudo rm -rf ~/.npm" logoutput="true" checkreturn="true" />
+        <exec command="rm -rf node_modules" dir="client" logoutput="true" checkreturn="true" />
+        <exec command="sudo npm install" dir="client" logoutput="true" checkreturn="true" />
+        <exec command="gulp" dir="client" logoutput="true" checkreturn="true" />
+    </target>
+
+
+    <!-- Clear Symfony cache -->
+    <target name="build:symfony:cache:rebuild">
+        <echo msg="Rebuilding ${app.env.type} Symfony cache" />
+        <exec command="app/console cache:clear --env=${app.env.type}" dir="${app.build.dir}" logoutput="true" checkreturn="true" />
+    </target>
+
+    <target name="build:symfony:cache-test:rebuild">
+        <echo msg="Rebuilding test Symfony cache" />
+        <exec command="app/console cache:clear --env=test" dir="${app.build.dir}" logoutput="true" checkreturn="true" />
+    </target>
+
+    <target name="build:app:db" depends="build:app">
+        <phingcall target="build:app:db-only" />
+    </target>
+
+    <target name="build:app:db-only">
+        <if>
+            <not><equals arg1="${app.env.type}" arg2="ci" /></not>
+            <then>
+                <echo msg="Updating ${app.env.type} schema with Migrations" />
+                <exec command="app/console doctrine:migrations:migrate --no-interaction --env=${app.env.type}" dir="${app.build.dir}" logoutput="true" checkreturn="true" />
+                <exec command="app/console doctrine:cache:clear-metadata --flush --env=${app.env.type}" dir="${app.build.dir}" logoutput="true" checkreturn="true" />
+                <exec command="app/console doctrine:cache:clear-query --flush --env=${app.env.type}" dir="${app.build.dir}" logoutput="true" checkreturn="true" />
+                <exec command="app/console doctrine:cache:clear-result  --env=${app.env.type}" dir="${app.build.dir}" logoutput="true" checkreturn="true" />
+            </then>
+        </if>
+
+        <if>
+            <equals arg1="${app.env.type}" arg2="ci" />
+            <then>
+                <echo msg="Updating TEST schema with Migrations" />
+                <exec command="app/console doctrine:database:drop --force --no-interaction --env=test" logoutput="true" checkreturn="true"  />
+                <exec command="app/console doctrine:database:create --no-interaction --env=test"  logoutput="true" checkreturn="true" />
+                <exec command="app/console doctrine:migrations:migrate --no-interaction --env=test" logoutput="true" checkreturn="true" />
+                <exec command="app/console doctrine:cache:clear-metadata --flush --env=test" dir="${app.build.dir}" logoutput="true" checkreturn="true" />
+                <exec command="app/console doctrine:cache:clear-query --flush --env=test" dir="${app.build.dir}" logoutput="true" checkreturn="true" />
+                <exec command="app/console doctrine:cache:clear-result  --env=test" dir="${app.build.dir}" logoutput="true" checkreturn="true" />
+            </then>
+            <elseif>
+                <equals arg1="${app.env.type}" arg2="dev" />
+                <then>
+                    <echo msg="Updating TEST schema with Migrations" />
+                    <exec command="app/console doctrine:database:drop --force --no-interaction --env=test" logoutput="true" checkreturn="true" />
+                    <exec command="app/console doctrine:database:create --no-interaction --env=test" logoutput="true" checkreturn="true" />
+                    <exec command="app/console doctrine:migrations:migrate --no-interaction --env=test" dir="${app.build.dir}" logoutput="true" checkreturn="true" />
+
+                    <echo msg="Loading products from CSV file" />
+                    <!-- wipe out product info first -->
+                    <exec command="app/console --env=dev >/dev/null doctrine:query:sql -- 'TRUNCATE TABLE base_basket CASCADE'" dir="${app.build.dir}" logoutput="true" checkreturn="true" />
+                    <exec command="app/console --env=dev >/dev/null doctrine:query:sql -- 'TRUNCATE TABLE category CASCADE'" dir="${app.build.dir}" logoutput="true" checkreturn="true" />
+                    <exec command="app/console --env=dev >/dev/null doctrine:query:sql -- 'TRUNCATE TABLE transaction CASCADE'" dir="${app.build.dir}" logoutput="true" checkreturn="true" />
+                    <exec command="app/console xmas:import:products-csv --encoding=mac --env=dev ${app.product.csv}" dir="${app.build.dir}" logoutput="true" checkreturn="true" />
+
+                    <echo msg="Loading dummy slots" />
+                    <exec command="build/build-dummy-slots.sh dev" dir="${app.build.dir}" logoutput="true" checkreturn="true" />
+
+                    <echo msg="" />
+                    <echo msg="" />
+                    <echo msg="*** Creating store login ***" />
+                    <echo msg="    username: CO.09999" />
+                    <echo msg="    password: rinkydink" />
+                    <echo msg="" />
+                    <exec command="app/console --env=dev xmas:admin:storelogin-create 9999 'Testhampton Superstore' rinkydink" dir="${app.build.dir}" logoutput="true" checkreturn="true" />
+                    <echo msg="" />
+                </then>
+            </elseif>
+            <elseif>
+                <equals arg1="${app.env.type}" arg2="uat" />
+                <then>
+                    <echo msg="" />
+                    <echo msg="" />
+                    <echo msg="*** Creating store login ***" />
+                    <echo msg="    username: CO.09999" />
+                    <echo msg="    password: goose" />
+                    <echo msg="" />
+                    <exec command="app/console --env=dev xmas:admin:storelogin-create 9999 'The Test Superstore' goose" dir="${app.build.dir}" logoutput="true" checkreturn="true" />
+                </then>
+            </elseif>
+        </if>
+    </target>
+
+    <target name="build:app:db:rollback">
+        <echo msg="ROLLING BACK ${app.env.type} schema to migration: ${doctrine.migration.rollback.version}" />
+        <exec command="app/console doctrine:migrations:migrate ${doctrine.migration.rollback.version} --no-interaction --env=${app.env.type}" dir="${app.build.dir.previous}" />
+    </target>
+
+
+    <!-- ============================================ -->
+    <!-- create behat.yml                        -->
+    <!-- ============================================ -->
+    <target name="build:params:behat" >
+        <echo msg="Generating behat.yml" />
+        <copy file="./behat.yml.dist" tofile="./behat.yml" overwrite="true">
+            <filterchain>
+                <replacetokens begintoken="#" endtoken="#">
+                    <token key="base_url" value="${env.SYMFONY__APP_BASE_URL}/app_test.php" />
+                    <token key="auto_screenshot" value="${app.tests.bdd.auto_screenshot}" />
+                    <token key="selenium.hub.url" value="${selenium.hub.url}" />
+                </replacetokens>
+            </filterchain>
+        </copy>
+    </target>
+
+    <!-- ============================================ -->
+    <!-- create behat.post-deploy.yml                        -->
+    <!-- ============================================ -->
+    <target name="build:params:behat-post-deploy" >
+        <echo msg="Generating behat.post-deploy.yml" />
+        <copy file="./behat.post-deploy.yml.dist" tofile="./behat.post-deploy.yml" overwrite="true">
+            <filterchain>
+                <replacetokens begintoken="#" endtoken="#">
+                    <token key="base_url" value="${env.SYMFONY__APP_BASE_URL}" />
+                </replacetokens>
+            </filterchain>
+        </copy>
+    </target>
+
+    <target name="build:app:permissions:set">
+        <echo msg="UPDATING PERMISSIONS" />
+        <exec command="sudo chmod -R 775 ${app.build.dir}" checkreturn="true" />
+        <exec command="sudo chown -R ${user.loggedin.current}:www-data ${app.build.dir}" checkreturn="true" />
+    </target>
+
+    <target name="build:app:environment_vars">
+        <echo msg="UPDATING ENVIRONMENT VARS" />
+        <exec command="cp -f ./build/environments/${app.env.type}/env_vars ~/env_vars" checkreturn="true" dir="${app.build.dir}" />
+        <exec command="chmod 644 ~/env_vars" checkreturn="true"  />
+        <exec command="chown ${user.loggedin.current}:${user.loggedin.current} ~/env_vars" checkreturn="true"  />
+    </target>
+
+    <target name="build:app:fastcgi_params">
+        <echo msg="UPDATING ${webserver.name}  FASTCGI PARAMS FOR PROJECT" />
+        <exec command="sudo cp -f ./build/environments/${app.env.type}/${app.cgi.vars.template} ${app.fastcgi_params.path}" checkreturn="true" dir="${app.build.dir}" />
+        <exec command="sudo chmod 644 ${app.fastcgi_params.path}" checkreturn="true"  />
+        <exec command="sudo chown root:root ${app.fastcgi_params.path}" checkreturn="true"  />
+
+        <echo msg="RELOAD WEBSERVER" />
+        <exec command="sudo service ${webserver.name} reload" checkreturn="true"  />
+    </target>
+
+    <target name="build:app:bash_profile">
+        <echo msg="UPDATING BASH PROFILE" />
+        <exec command="cp -f ./build/environments/${app.env.type}/bash_profile ~/.bash_profile" checkreturn="true" dir="${app.build.dir}"  />
+        <exec command="chmod 644 ~/.bash_profile" checkreturn="true"  />
+        <exec command="chown ${user.loggedin.current}:${user.loggedin.current} ~/.bash_profile" checkreturn="true"  />
+
+    </target>
+
+    <target name="build:app:symfony:front-controller:remove-others">
+        <echo msg="REMOVING ALL FRONT CONTROLLERS EXCEPT THE ONE NEEDED FOR TARGET ENV" />
+        <foreach list="${app.front-controllers.remove}" param="fc.name" target="build:app:symfony:front-controller:delete" />
+        <echo msg="FRONT CONTROLLERS REMOVED! CONTENTS OF WEB FOLDER" />
+        <exec command="ls -lah web/" checkreturn="true" dir="${app.build.dir}"  />
+    </target>
+
+    <target name="build:app:symfony:front-controller:delete">
+        <echo msg="REMOVING web/${fc.name}" />
+        <exec command="rm web/${fc.name}" checkreturn="true" dir="${app.build.dir}"  />
+    </target>
+
+    <!-- ============================================ -->
+    <!-- Run BDD tests (Behat)                        -->
+    <!-- ============================================ -->
+    <target name="test:behat" depends="build:app,build:app:db">
+        <phingcall target="test:behat-only" />
+    </target>
+
+    <!-- ============================================ -->
+    <!-- Run BDD tests (Behat)                        -->
+    <!-- ============================================ -->
+    <target name="test:behat-only" depends="test:reports:create:dir">
+        <echo msg="Running BDD tests (Behat)" />
+        <phingcall target="test:behat:headless" />
+        <phingcall target="test:behat:selenium" />
+        <phingcall target="test:behat:create:screenshot_index" />
+    </target>
+
+
+    <!-- ============================================ -->
+    <!-- Run POST DEPLOYMENT BDD tests (Behat)                        -->
+    <!-- ============================================ -->
+    <target name="test:behat:post-deploy" depends="build:php-dependencies,build:params:behat-post-deploy">
+        <echo msg="Running post-deployment checks (Behat)" />
+        <exec command="./bin/behat --stop-on-failure --verbose --profile post-deploy --config='behat.post-deploy.yml' --tags '@post-deploy' --format junit,pretty,html --out build,null,build/post-deploy.html  --time --no-paths" logoutput="true" checkreturn="true" />
+    </target>
+
+    <!-- ================================================== -->
+    <!-- Headless browser tests-->
+    <!-- ================================================== -->
+    <target name="test:behat:headless" depends="test:reports:create:dir">
+        <echo message="Running Behat headless browser tests"/>
+        <exec command="./bin/behat --stop-on-failure --tags '~@javascript&amp;&amp;~@post-deploy'  "   logoutput="true" checkreturn="true" />
+    </target>
+
+    <!-- ================================================== -->
+    <!-- Selenium tests-->
+    <!-- ================================================== -->
+    <target name="test:behat:selenium" depends="test:reports:create:dir">
+
+        <if>
+            <equals arg1="${app.env.type}" arg2="dev" />
+            <then>
+                <phingcall target="test:selenium:start" />
+            </then>
+        </if>
+
+        <if>
+            <equals arg1="${app.env.type}" arg2="ci" />
+            <then>
+                <phingcall target="symlink:old_builds" />
+                <phingcall target="test:behat:create:screenshot_index" />
+            </then>
+        </if>
+        <echo message="Running Behat Selenium browser tests"/>
+        <exec command="./bin/behat --stop-on-failure --tags '@javascript&amp;&amp;~@post-deploy' " logoutput="true" checkreturn="true" />
+    </target>
+
+
+    <!-- ============================================ -->
+    <!-- Generates index file for BDD screenshots               -->
+    <!-- ============================================ -->
+    <target name="test:behat:create:screenshot_index">
+        <echo msg="Generating  Screenshot Reports index file" />
+        <copy file="./features/screenshots/index.html.tpl" tofile="./features/screenshots/screenshots.html" overwrite="true">
+            <filterchain>
+                <replacetokens begintoken="#" endtoken="#">
+                    <token key="build_number" value="${env.BUILD_NUMBER}" />
+                    <token key="job_url" value="${env.JOB_URL}" />
+                </replacetokens>
+            </filterchain>
+        </copy>
+    </target>
+
+    <!-- ================================================= -->
+    <!-- Create link from work space to previous builds    -->
+    <!-- ================================================= -->
+    <target name="symlink:old_builds" >
+        <echo message="Symlinking old builds"/>
+        <exec command="ln -s ../../jobs/${env.JOB_NAME}/builds old_builds"   logoutput="true" checkreturn="true" />
+    </target>
+
+    <!-- ============================================ -->
+    <!-- Create folder for clover                     -->
+    <!-- ============================================ -->
+    <target name="test:reports:create:dir">
+        <echo msg="Creating test result folder" />
+        <mkdir dir="build/reports" />
+    </target>
+
+
+    <!-- ============================================ -->
+    <!-- Run PHPUnit                                  -->
+    <!-- ============================================ -->
+    <target name="test:phpunit" depends="build:app,build:app:db" >
+        <phingcall target="test:phpunit-only" />
+    </target>
+
+    <!-- ============================================ -->
+    <!-- Run PHPUnit                                  -->
+    <!-- ============================================ -->
+    <target name="test:phpunit-only" depends="test:reports:create:dir" >
+        <echo msg="Running PHPUnit" />
+        <exec command="./bin/phpunit --verbose --debug --log-junit 'build/reports/unitreport.xml' --coverage-html 'build/reports' --coverage-clover 'build/reports/clover.xml' -c app" logoutput="true" checkreturn="true" />
+    </target>
+
+
+    <!-- Run Spec Tests -->
+    <target name="test:phpspec" depends="build:app,build:app:db">
+        <phingcall target="test:phpspec-only" />
+    </target>
+
+    <!-- Run Spec Tests -->
+    <target name="test:phpspec-only" depends="test:reports:create:dir">
+        <echo msg="Running Spec tests" />
+        <exec command="bin/phpspec run" dir="." checkreturn="true" passthru="true"  />
+    </target>
+
+
+    <!-- Run Spec Tests -->
+    <target name="test:selenium:start" >
+        <echo msg="STARTING SELENIUM" />
+        <exec command="./build.selenium-start.sh" checkreturn="true" passthru="true"  dir="${app.build.dir}" />
+    </target>
+
+    <!-- ============================================ -->
+    <!-- Create Artifact                              -->
+    <!-- ============================================ -->
+    <target name="artifact:create" depends="artifact:zip, artifact:upload" />
+
+    <target name="artifact:create-and-release" depends="artifact:zip-only, artifact:deploy" />
+
+    <target name="artifact:zip-only-and-archive" depends="artifact:zip-only,artifact:upload-only" />
+
+    <target name="artifact:zip" depends="build:app">
+        <phingcall target="artifact:zip-only" />
+    </target>
+    <!-- ============================================ -->
+    <!-- Compress Artifact                            -->
+    <!-- ============================================ -->
+    <target name="artifact:zip-only" depends="build:get-git-hash">
+        <echo msg="Packing Artifact" />
+        <property name="app.vendor.dir.delete" value="false" />
+        <touch file="holding_page.lock" />
+        <tar destfile="${git.commit.hash}.tar.gz" compression="gzip" basedir="." >
+            <fileset dir="." expandsymboliclinks="true">
+                <patternset>
+                    <include name="app/**/*" />
+                    <include name="bin/*" />
+                    <include name="build/**/*" />
+                    <include name="client/**/*" />
+                    <include name="src/**/*" />
+                    <include name="vendor/**/*" />
+                    <include name="web/**/*" />
+                    <include name="build.xml" />
+                    <include name="build.*.properties" />
+                    <include name="version.txt" />
+                    <include name="holding_page.lock" />
+                    <include name="build.go-live.sh.dist" />
+
+                    <exclude name="app/cache/**" />
+                    <exclude name="app/logs/**" />
+                    <exclude name="**/Tests/**" />
+                    <exclude name="**/.git/**" />
+                    <exclude name="features" />
+                    <exclude name="spec" />
+                    <exclude name="*.box" />
+                </patternset>
+            </fileset>
+        </tar>
+        <echo msg="Artifact ${git.commit.hash}.tar.gz was successfully created!" />
+
+    </target>
+
+    <!-- ============================================ -->
+    <!-- Upload Artifact to S3                        -->
+    <!-- ============================================ -->
+    <target name="artifact:upload" depends="artifact:zip">
+        <phingcall target="artifact:upload-only" />
+    </target>
+
+    <target name="artifact:upload-only" depends="build:get-git-hash">
+        <echo msg="Uploading artifact to File store" />
+        <s3put source="${git.commit.hash}.tar.gz" object="${git.commit.hash}.tar.gz" />
+    </target>
+
+
+    <target name="artifact:unzip">
+        <echo msg="Unpacking Artifact" />
+        <untar file="./${git.commit.hash}.tar.gz" todir="${artifact.unzip.dir}">
+            <fileset dir=".">
+                <include name="*.tar.gz"/>
+                <include name="*.tar"/>
+            </fileset>
+        </untar>
+    </target>
+
+    <target name="artifact:post-deploy:cleanup">
+        <exec command="sudo rm -rf ./*.tar.gz" dir="${scp.remote.dir}" checkreturn="true" />
+        <exec command="sudo rm -rf ./releases/*" dir="${scp.remote.dir}" checkreturn="true" />
+    </target>
+
+
+    <target name="artifact:extracted:go-live"   >
+        <!-- GET THE CURRENTLY ACTIVE BUILD FOR ROLLBACK PURPOSES -->
+        <exec command="readlink -f ${scp.remote.project.dir}/current" outputProperty="app.build.dir.previous"  />
+        <echo msg="CREATING DIR ${scp.remote.project.dir}/releases if not already created" />
+        <exec command="sudo mkdir -p ${scp.remote.project.dir}/releases" checkreturn="true"  />
+
+        <echo msg="COPYING TO PROJECT DIR ${scp.remote.project.dir}/releases/" />
+        <exec command="sudo cp -rf ${scp.remote.dir}/releases/${git.commit.hash} ${scp.remote.project.dir}/releases/" checkreturn="true" />
+        <echo msg="FINISHED COPYING TO PROJECT DIR" />
+        <echo msg="CONTENTS OF ${app.build.dir}" />
+        <exec command="ls -lah ${app.build.dir}" checkreturn="true" />
+
+        <phingcall target="build:whoami"  />
+        <phingcall target="build:app:permissions:set" />
+        <exec command="ls -lah ${app.build.dir}" checkreturn="true" />
+        <phingcall target="build:app:environment_vars" />
+        <phingcall target="build:app:bash_profile" />
+        <phingcall target="build:app:symfony:front-controller:remove-others" />
+
+        <echo msg="SWITCHING CURRENT SYMLINK AND PREPARING TO GO LIVE" />
+        <exec command="sudo ln -sfvn releases/${git.commit.hash} current"  checkreturn="true" dir="${scp.remote.project.dir}" />
+
+        <if>
+            <istrue value="${doctrine.migration.rollback.version}" />
+            <then>
+                <echo message="DOCTRINE ROLLBACK VERSION DETECTED. WILL ROLLBACK TO VERSION ${doctrine.migration.rollback.version}" />
+                <phingcall target="build:app:db:rollback" />
+            </then>
+        </if>
+
+        <phingcall target="build:app:fastcgi_params" />
+
+        <if>
+            <not><isset property="ami-gen"/></not>
+            <then>
+                <phingcall target="build:app:db-only" />
+                <phingcall target="build:cron-job:update" />
+            </then>
+        </if>
+        <phingcall target="build:symfony:cache:rebuild" />
+        <phingcall target="build:app:permissions:set" />
+        <echo msg="REMOVING HOLDING PAGE" />
+        <exec command="mv -f holding_page.lock holding_page.lock.bak" checkreturn="true" dir="${app.build.dir}" />
+    </target>
+
+    <target name="artifact:deploy">
+        <ssh username="${ssh.username}"
+             host="${ssh.host}"
+             pubkeyfile="${ssh.public_key}"
+             privkeyfile="${ssh.private_key}"
+             command="
+        ls -lah ${scp.remote.dir} &amp;&amp;
+        mkdir -p releases &amp;&amp;
+        mkdir -p releases/${git.commit.hash} &amp;&amp;
+        aws s3 cp s3://xmas-artefacts/${git.commit.hash}.tar.gz ${scp.remote.dir} &amp;&amp;
+        tar --overwrite -xzf ${scp.remote.dir}/${git.commit.hash}.tar.gz -C ${scp.remote.dir}/releases/${git.commit.hash}/ &amp;&amp;
+        ls -lah releases/${git.commit.hash}/ &amp;&amp;
+        cd releases/${git.commit.hash}/  &amp;&amp;
+        echo ABOUT TO GO LIVE  &amp;&amp;
+        phing build:go-live.sh -verbose -Dphing.property-file.name=${phing.property-file.name} -Dapp.env.type=${app.env.type} -Dscp.remote.dir=${scp.remote.dir} -Dscp.remote.project.dir=${scp.remote.project.dir} -Dgit.commit.hash=${git.commit.hash} -Ddoctrine.migration.rollback.version=${doctrine.migration.rollback.version} -Dapp.fastcgi_params.path=${app.fastcgi_params.path} -Dwebserver.name=${webserver.name} -Duser.loggedin.current=${user.loggedin.current} &amp;&amp;
+        ./build.go-live.sh
+
+        " property="remote.stdout" display="true" failonerror="true" />
+    </target>
+
+    <target name="build:go-live.sh" >
+        <echo msg="Generating 'build.go-live.sh'" />
+        <copy file="./build.go-live.sh.dist" tofile="./build.go-live.sh" overwrite="true">
+            <filterchain>
+                <replacetokens begintoken="#" endtoken="#">
+                    <token key="scp.remote.dir" value="${scp.remote.dir}" />
+                    <token key="git.commit.hash" value="${git.commit.hash}" />
+                    <token key="app.env.type" value="${app.env.type}" />
+                    <token key="scp.remote.project.dir" value="${scp.remote.project.dir}" />
+                    <token key="doctrine.migration.rollback.version" value="${doctrine.migration.rollback.version}" />
+                    <token key="app.fastcgi_params.path" value="${app.fastcgi_params.path}" />
+                    <token key="webserver.name" value="${webserver.name}" />
+                    <token key="user.loggedin.current" value="${user.loggedin.current}" />
+                    <token key="phing.property-file.name" value="${phing.property-file.name}" />
+                </replacetokens>
+            </filterchain>
+        </copy>
+        <exec command="chmod +x ./build.go-live.sh" checkreturn="true"  />
+    </target>
+
+    <target name="artifact:deploy:staging">
+        <!-- create stage ami with artifact in it -->
+        <property name="artifact.revision" value="${env.ARTIFACT_REVISION}" />
+        <echo msg="Starting AMI creation with revision: ${artifact.revision}" />
+        <exec command="/opt/packer/packer build -machine-readable -var 'version=${artifact.revision}' -var 'phing-property-filename=build.ami.stage.ci.properties' -var 'source-ami=${aws.ami.base.name}' -var 'server-env=${app.env.type}' -var 'vpc-id=${aws.vpc.id}' -var 'subnet-id=${aws.subnet.id}' -var 'security-group-id=${aws.packer.security_group.id}' aws/ami-builder/ami-builder.json > amibuilder.log" logoutput="true" checkreturn="true" />
+        <exec command="/bin/cat amibuilder.log" logoutput="true" checkreturn="true" passthru="true" />
+        <exec command="grep 'artifact,0,id' amibuilder.log | cut -d, -f6 | cut -d: -f2" outputProperty="ami.staging.version" />
+
+        <!-- Spin up new auto-scaling instances -->
+        <exec command="aws --region eu-west-1 cloudformation update-stack --stack-name xmas-stg-webapp --use-previous-template --parameters ParameterKey=XmasSTGImage,ParameterValue=${ami.staging.version} ParameterKey=HoldingPage,UsePreviousValue=true" logoutput="true" checkreturn="true" />
+    </target>
+
+    <target name="artifact:ami:prod">
+        <property name="artifact.revision" value="${env.ARTIFACT_REVISION}" />
+        <echo msg="Starting AMI creation with revision: ${artifact.revision}" />
+        <exec command="/opt/packer/packer build -machine-readable -var 'version=${artifact.revision}' -var 'phing-property-filename=build.ami.prod.ci.properties' -var 'source-ami=${aws.ami.base.name}' -var 'server-env=${app.env.type}' -var 'vpc-id=${aws.vpc.id}' -var 'subnet-id=${aws.subnet.id}' -var 'security-group-id=${aws.packer.security_group.id}' aws/ami-builder/ami-builder.json > amibuilder.log" logoutput="true" checkreturn="true" />
+        <exec command="grep 'artifact,0,id' amibuilder.log | cut -d, -f6 | cut -d: -f2" outputProperty="ami.prod.version" />
+        <echo msg="Production AMI: ${ami.prod.version} successfully created" />
+        <s3put content="${ami.prod.version}" object="${aws.ami.prod.id.file}" />
+        <echo msg="Production AMI id file: ${aws.ami.prod.id.file} uploaded to successfully to S3" />
+    </target>
+
+    <target name="artifact:deploy:production">
+        <!-- Retrieve the id of the latest AMI for production -->
+        <s3get object="${aws.ami.prod.id.file}" target="./" />
+        <exec command="/bin/cat ${aws.ami.prod.id.file}" outputProperty="ami.prod.version" />
+        <if>
+            <equals arg1="${ami.prod.version}" arg2="" />
+            <then >
+                <fail message="ERROR!!! ${aws.ami.prod.id.file} did not contain a production AMI ID. Build aborted." />
+            </then>
+        </if>
+        <!-- Spin up new auto-scaling instances -->
+        <exec command="aws --region eu-west-1 cloudformation update-stack --stack-name xmas-prod-app --use-previous-template --parameters ParameterKey=XmasProdImage,ParameterValue=${ami.prod.version} ParameterKey=HoldingPage,UsePreviousValue=true" logoutput="true" checkreturn="true" />
+    </target>
+
+    <target name="build:whoami">
+        <echo msg="WHO AM I" />
+        <exec command="who am i | awk '{print $1}'" outputProperty="user.loggedin.current" />
+        <echo msg="YOU ARE ${user.loggedin.current}" />
+    </target>
+
+    <target name="build:cron-job:update" >
+        <echo msg="Generating 'xmas cron file'" />
+        <copy file="./build/cron/xmas.dist" tofile="./build/cron/xmas-app" overwrite="true">
+            <filterchain>
+                <replacetokens begintoken="#" endtoken="#">
+                    <token key="cron-job.php-user.default" value="${cron-job.php-user.default}" />
+                    <token key="app.build.dir.current" value="${app.build.dir.current}" />
+                    <token key="app.env.type" value="${app.env.type}" />
+                </replacetokens>
+            </filterchain>
+        </copy>
+        <exec command="sudo cp -f ./build/cron/xmas-app ${app.cron.d.dir}/xmas-app" checkreturn="true"  />
+        <exec command="sudo chown root:root ${app.cron.d.dir}/xmas-app" checkreturn="true"  />
+        <exec command="sudo chmod 644 ${app.cron.d.dir}/xmas-app" checkreturn="true"  />
+    </target>
+
+    <target name="build:app" depends="
+        build:params,
+        build:params:test,
+        build:params:behat,
+        build:app:fastcgi_params,
+        build:php-dependencies,
+        build:frontend,
+        test:reports:create:dir,
+        build:symfony:cache-test:rebuild,
+        build:app:version-update
+        ">
+        <if>
+            <equals arg1="${app.env.type}" arg2="ci" />
+            <then>
+                <phingcall target="build:app:permissions:set" />
+            </then>
+        </if>
+    </target>
+
+    <target name="test:pull-request" depends="
+        test:phpspec,
+        test:phpunit,
+        test:behat
+        " />
+
+    <target name="test:pull-request:no-build" depends="
+        build:symfony:cache-test:rebuild,
+        test:phpspec-only,
+        test:phpunit-only,
+        test:behat-only
+        " />
+</project>

@@ -1,0 +1,921 @@
+.slots {
+    .slot_margins {
+        width:90%;
+        margin-right:auto;
+        margin-left:auto;
+        padding:125px 0;
+        text-align:center;
+
+        @include media($desktop) {
+            width:100%;
+            padding:200px 0;
+        }
+    }
+
+    .slot_banner {
+        clear:both;
+        text-align:center;
+        margin-bottom:0;
+        background-size:cover;
+        height:400px;
+        transition-duration: 0.2s;
+        transition-timing-function: linear;
+        background-image:url('../../../../../compiled/assets/img/book-a-slot/mobile/hero-background-image.png');
+
+        @include media($desktop) {
+            height:550px;
+            background-image:url('../../../../../compiled/assets/img/book-a-slot/desktop/hero-background-image.png');
+        }
+
+        .slot_header {
+            margin-bottom:15px;
+            font-family:MaryAnnRegular;
+
+            @include media($desktop) {
+                margin-bottom:30px;
+            }
+        }
+
+        .slot_search_container {
+            width:286px;
+            overflow:hidden;
+            margin-right:auto;
+            margin-left:auto;
+
+            @include media($tablet) {
+                width:380px;
+            }
+
+            .slot_search_input_container {
+                border-radius: 25px;
+                background-color:$white;
+                padding:3px 10px;
+                display:inline-block;
+                float:left;
+                margin-right:10px;
+                width:170px;
+
+                @include media($desktop) {
+                    width:260px;
+                }
+
+                input {
+                    border:none;
+                    box-shadow:none;
+                    border-radius:0;
+                    padding:0;
+                    font-size:14px;
+                    width:130px;
+                    float:left;
+                    font-family:arial;
+
+                    @include media($desktop) {
+                        width:220px;
+                    }
+
+                    &::-ms-clear {
+                        display:none;
+                    }
+
+                    &:focus {
+                        outline:0;
+                    }
+                }
+
+                .clear_search_box {
+                    width: 15px;
+                    margin-top: 8px;
+                    display:none;
+                }
+            }
+
+            .slot_search_button {
+                border-radius: $borderRadius;
+                background-color:$buttonColour;
+                padding: 9px 15px;
+                color:$buttonText;
+                float:left;
+                border:0;
+                font-size:1.4rem;
+                width: auto;
+
+                @include media($tablet) {
+                    font-size:1.8rem;
+                    padding: 6px 15px;
+                }
+            }
+        }
+
+        .search_button {
+            float:left;
+        }
+
+        h1 {
+            color:$white;
+            font-weight:normal;
+            margin:0;
+            font-size:2.6rem;
+
+            @include media($tablet) {
+                font-size:3.6rem;
+            }
+        }
+
+        h2 {
+            color:$white;
+            font-weight:normal;
+            margin:0;
+            font-size:1.4rem;
+            width: 210px;
+            margin-right: auto;
+            margin-left: auto;
+
+            @include media($tablet) {
+                font-size:1.8rem;
+                width: 100%;
+            }
+        }
+
+        .ie9label{
+
+          color:white;
+          display: block;
+          margin-bottom: 10px;
+        }
+    }
+
+    .nearest_stores {
+        background-color:$white;
+
+        .nearest_stores_slot_margins {
+            width:90%;
+            margin-right:auto;
+            margin-left:auto;
+            text-align:center;
+            overflow:hidden;
+
+            @include media($desktop) {
+                width:100%;
+            }
+        }
+
+        .nearest_store_info_message {
+            width:100%;
+            height:200px;
+            padding:20px 0px;
+            background-color:$white;
+            display:none;
+        }
+
+        .nearest_stores_results {
+            display:none;
+            padding:20px 0px;
+            font-family:maryAnnRegular;
+            font-size:3rem;
+        }
+
+        h2 {
+            font-size:2.4rem;
+            color:#3d3d3d;
+            font-weight:normal;
+            margin-top:0;
+
+            @include media($tablet) {
+                font-size:3rem;
+            }
+        }
+
+        .store_list {
+            width:100%;
+            min-height:1px;
+            margin-bottom:20px;
+
+            @include media($desktop) {
+                width:320px;
+                margin-right:20px;
+                float:left;
+            }
+
+            .active {
+                background-color:#f0f0f0;
+            }
+
+            .info_container {
+                overflow:hidden;
+                height:65px;
+                cursor:pointer;
+                transition-duration: 0.2s;
+                transition-timing-function: linear;
+
+                &.active {
+                    background-color:#f0f0f0;
+                    height:206px;
+                    cursor:default;
+                }
+
+                .markers_container {
+                    padding:15px 15px 0px 15px;
+                    float:left;
+                    width:19%;
+                    margin-bottom:10px;
+
+                    @include media($desktop) {
+                        width:22%;
+                    }
+
+                    .small_marker {
+                        width:25px;
+                        height:29px;
+                        background-image:url('../../../../../compiled/assets/img/book-a-slot/small_pin.png');
+                        background-size:cover;
+                        color:$white;
+                        font-size:13px;
+                        padding-top:4px;
+                        margin-right: auto;
+                        margin-left: auto;
+                    }
+                }
+
+                .address_container {
+                    width:55%;
+                    float:left;
+                    text-align:initial;
+                    padding:15px 0px;
+                    font-size:1.4rem;
+                    color:#3d3d3d;
+                    font-family:arial;
+
+                    .address_name {
+                        font-weight:bold;
+                        height:29px;
+                        margin-top:0;
+                        margin-bottom:10px;
+                        font-size:1.6rem;
+                        font-family:MaryAnnBold;
+                    }
+
+                    .address_full {
+                        display:none;
+                        height:65px;
+                    }
+
+                    .view_store_details {
+                        text-decoration:underline;
+                        color:#333;
+                        display:none;
+                        cursor:pointer;
+                    }
+                }
+
+                .distance_container {
+                    width:23%;
+                    float:left;
+                    padding:20px 0px 15px 0px;
+                    font-size:1.2rem;
+                    color:#555;
+                    text-align:left;
+                    font-family:arial;
+                }
+
+                .select_collection_slot {
+                    border-radius:25px;
+                    background-color:$purple;
+                    padding-bottom: 5px;
+                    padding-top: 3px;
+                    color:$white;
+                    border:0;
+                    font-size:1.8rem;
+                    margin-bottom:15px;
+                    width:220px;
+                    margin-left:19%;
+                    display: block;
+                    clear: both;
+                    text-decoration:none;
+
+                    @include media($desktop) {
+                        margin-left:70px;
+                    }
+                }
+            }
+        }
+
+        .map {
+            width:100%;
+            height:200px;
+            min-height:1px;
+            border:1px solid #ccc;
+            margin-bottom:20px;
+
+            @include media($desktop) {
+                width:620px;
+                height:450px;
+                float:right;
+            }
+        }
+    }
+}
+
+.slot-reserved {
+    clear:both;
+    text-align:center;
+
+    .collection_slot_reserved_heading_container {
+        overflow:hidden;
+        width: 270px;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom:20px;
+        margin-top:20px;
+
+        @include media($desktop) {
+            width:400px;
+        }
+
+        .green_tick {
+            float:left;
+            margin-top:4px;
+            width:22px;
+            margin-right:10px;
+            margin-top:17px;
+
+            @include media($desktop) {
+                margin-right:20px;
+                margin-top:15px;
+            }
+        }
+
+        .collection_slot_reserved_heading {
+            float:left;
+
+            h1 {
+                font-size:2.4rem;
+                font-weight: normal;
+                margin:0;
+                margin-top:11px;
+                font-family:maryAnnRegular;
+
+                @include media($desktop) {
+                    font-size:3.6rem;
+                    margin-top:0;
+                }
+            }
+        }
+    }
+
+    .slot_details_container {
+        background-color:#f8f8f8;
+        padding:20px;
+        width:90%;
+        margin-left:auto;
+        margin-right:auto;
+        overflow:hidden;
+        margin-bottom:20px;
+
+        @include media($tablet) {
+            width:640px;
+        }
+
+        .slot_details_col {
+            margin-bottom:30px;
+
+            @include media($desktop) {
+                margin-bottom:20px;
+            }
+
+            h4 {
+                font-size:1.4rem;
+                color:#555;
+                margin:0;
+                font-weight:normal;
+                font-family:MaryAnnMedium, open-sans, sans-serif;
+
+                @include media($desktop) {
+                    color:#999;
+                }
+            }
+
+            .slot_details_large {
+                font-size:2.2rem;
+                font-weight: normal;
+                color:#3d3d3d;
+                margin-bottom:5px;
+                font-family:MaryAnnMedium, open-sans, sans-serif;
+            }
+
+            .slot_details_address {
+                font-size:14px;
+                color:#333;
+                font-weight:normal;
+                line-height:20px;
+                font-family:arial;
+
+                @include media($desktop) {
+                    color:#999;
+                }
+            }
+
+            .view_store_details {
+                text-decoration:underline;
+                color:#3d3d3d;
+                display:none;
+                cursor:pointer;
+
+                @include media($desktop) {
+                    display:block;
+                }
+            }
+        }
+    }
+
+    .reserved_until_notice_container{
+        width:215px;
+        margin-right:auto;
+        margin-left:auto;
+        overflow:hidden;
+        margin-bottom:20px;
+
+        @include media($phablet) {
+            width:304px;
+        }
+
+        @include media($tablet) {
+            width:560px;
+        }
+
+        .info_circle {
+            background-color:#000;
+            color:$white;
+            padding:3px;
+            display: inline-block;
+            width: 25px;
+            height: 25px;
+            border-radius: 30px;
+            text-align: center;
+            margin-right: 10px;
+            margin-top:13px;
+            font-size:15px;
+            float:left;
+        }
+
+        .info_circle_icon {
+            float:left;
+            width:22px;
+            margin-right:10px;
+            margin-top:16px;
+
+            @include media($desktop) {
+                margin-right:10px;
+            }
+        }
+
+        .reserved_until_notice_heading {
+            float:left;
+            width: 180px;
+
+            @include media($phablet) {
+                width:270px;
+            }
+
+            @include media($tablet) {
+                width:auto;
+            }
+
+            h3 {
+                font-size:1.8rem;
+                font-weight: normal;
+                margin:0;
+                margin-top:11px;
+                text-align: left;
+                margin-bottom:5px;
+                font-family:maryAnnRegular, open-sans, sans-serif;
+
+                @include media($desktop) {
+                    font-size:2.2rem;
+                }
+            }
+
+            .reserved_until_warning {
+                text-align:left;
+                font-size:14px;
+            }
+        }
+    }
+
+    .slot_reserved_buttons {
+        overflow:hidden;
+        padding:20px;
+        margin: 0 auto 20px;
+        text-align: center;
+
+        .btn{
+          display: block;
+          margin: 0 auto 20px;
+        }
+
+        @include media($tablet) {
+            width:640px;
+            margin-bottom:30px;
+
+            .btn{
+              display: inline-block;;
+            }
+        }
+
+        .choose_a_different_slot {
+            padding:8px 0;
+            border:0;
+            margin-bottom:20px;
+            cursor:pointer;
+
+            @include media($tablet) {
+              margin-right: 20px;
+            }
+
+            @include media($desktop) {
+                float:left;
+                margin-bottom:0px;
+            }
+
+            &.single{
+
+              float:none;
+            }
+
+            &:hover {
+                text-decoration:none;
+            }
+        }
+
+        .continue_shopping {
+            padding:8px 0;
+            border:0;
+            margin-bottom:20px;
+            cursor:pointer;
+
+            @include media($desktop) {
+                float:right;
+                margin-bottom:0px;
+            }
+
+            &.disabled {
+                color:#666;
+                background-color:#eee;
+                cursor:default;
+            }
+
+            .continue_shopping {
+                float: right;
+            }
+        }
+    }
+}
+
+.mobile_store_name {
+    font-size:28px;
+    font-family:maryAnnRegular;
+    margin:0;
+    background-color:#eee;
+    padding:15px 0;
+
+    @include media($desktop) {
+        display:none;
+    }
+}
+
+.mobile_tab_menu_container {
+    overflow:hidden;
+
+    @include media($desktop) {
+        display:none;
+    }
+
+    .mobile_tab_menu {
+        background-color:#ccc;
+        width:50%;
+        font-weight:normal;
+        float:left;
+        padding:20px 5px;
+        cursor: pointer;
+
+        &.active {
+            background-color:$white;
+            font-weight:bold;
+            text-decoration: none;
+        }
+    }
+}
+
+.store_details_container {
+    display:none;
+
+    @include media($tablet) {
+        display:block;
+        margin-bottom:80px;
+    }
+}
+
+.store_details_order_confirmation_page .store_details_container {
+    display:block;
+}
+
+.collection_slot_store_details {
+    background-color:#eee;
+    text-align:center;
+    overflow:auto;
+
+    h2 {
+        font-size:26px;
+        color:#3d3d3d;
+        font-weight:normal;
+    }
+
+    #slot_matrix_placeholder {
+        display:none;
+
+        .slot_matrix_container {
+
+            h2 {
+                font-size:2.8rem;
+                font-family:maryAnnRegular;
+                color:#3d3d3d;
+
+                @include media($desktop) {
+                    font-size:3.0rem;
+                }
+            }
+        }
+    }
+
+    .slot_matrix {
+        background-color:$white;
+        padding:20px 0;
+        width:100%;
+        overflow:hidden;
+        margin-bottom:20px;
+        padding-left:10px;
+        padding-right:10px;
+
+        @include media($desktop) {
+            width:620px;
+        }
+
+        h3 {
+            font-size:2.6rem;
+            color:#3d3d3d;
+            font-weight:normal;
+            margin:0 0 10px 0;
+            margin-bottom:20px;
+            font-family:maryAnnRegular;
+        }
+
+        .slots_col {
+            width:33%;
+            float:left;
+            margin-bottom:10px;
+
+            .slot_date {
+                font-size:1.6rem;
+                font-weight: bold;
+                color:#3d3d3d;
+                margin-bottom:15px;
+                font-family:maryAnnRegular;
+
+                @include media($desktop) {
+                    font-size:2.2rem;
+                    font-weight:normal;
+                }
+            }
+
+            .time_slot {
+
+                border:1px solid $purple;
+                padding:4px 3px;
+                border-radius:20px;
+                color:$purple;
+                width:90px;
+                margin-left:auto;
+                margin-right:auto;
+                margin-bottom:20px;
+                display:block;
+                text-decoration:none;
+                font-size:1.6rem;
+                font-family:maryAnnRegular;
+                height:30px;
+
+                @include media($desktop) {
+                    width:140px;
+                }
+
+                &:hover {
+                    color:$white;
+                    background-color:$purple;
+                }
+
+                &.active {
+                    color:$white;
+                    background-color:$purple;
+                }
+
+                &.disabled {
+                    color:#666;
+                    background-color:#eee;
+                    border-color:#eee;
+                    cursor:default;
+                }
+            }
+        }
+
+        .confirm_selection {
+            border-radius: $borderRadius;
+            background-color:$purple;
+            padding:9px 6px 9px;
+            color:$white;
+            border:0;
+            font-size:1.8rem;
+            margin-bottom:20px;
+            display: block;
+            clear: both;
+            margin-left: auto;
+            margin-right: auto;
+            font-family:maryAnnRegular;
+            width: $buttonWidth;
+
+            @include media($desktop) {
+                margin-bottom:0px;
+            }
+
+            &.disabled {
+                color:#666;
+                background-color:#eee;
+                cursor:default;
+            }
+        }
+
+        .choose_another_store {
+            font-size:14px;
+            color:#3d3d3d;
+
+            .choose_another_store_link {
+                text-decoration:underline;
+            }
+
+            @include media($desktop) {
+                display:none;
+            }
+        }
+
+        h3.no_slots_available {
+            font-size:26px;
+        }
+
+        p.no_slots_available {
+            font-size:18px;
+            line-height:28px;
+            margin-bottom:30px;
+        }
+
+        .choose_a_different_store {
+            border-radius: 25px;
+            background-color:$purple;
+            padding:10px 45px;
+            color:$white;
+            border:0;
+            font-size:15px;
+            cursor:pointer;
+            display: inline-block;
+            margin-bottom:10px;
+        }
+    }
+
+
+
+    .store_details {
+        overflow:hidden;
+        background-color:#eee;
+
+        @include media($tablet) {
+            display:block;
+        }
+
+        h3 {
+            font-size:3rem;
+            color:#3d3d3d;
+            font-weight:normal;
+            display:none;
+            font-family:MaryAnnRegular, open-sans, sans-serif;
+
+            @include media($desktop) {
+                display:block;
+            }
+        }
+
+        .store_details_col {
+
+            @include media($desktop) {
+                text-align:initial;
+            }
+
+            .store_details_item {
+                margin-bottom:20px;
+
+                h4 {
+                    font-size:1.6rem;
+                    font-family:MaryAnnBold, open-sans, sans-serif;
+                    margin-bottom:10px;
+                }
+
+                p {
+                    font-size:1.4rem;
+                    margin-bottom:5px;
+                    min-height:24px;
+                }
+
+                &.opening_hours {
+
+                    .opening_times_container {
+                        margin-bottom:5px;
+                        overflow:hidden;
+                        width: 240px;
+                        margin-left: auto;
+                        margin-right: auto;
+                        text-align:left;
+                        height:24px;
+
+                        @include media($desktop) {
+                            width:initial;
+                        }
+
+                        .opening_hours_day {
+                            width:150px;
+                            float:left;
+                            margin-bottom:10px
+                        }
+
+                        .seasonal_opening_hours_day {
+                            width:150px;
+                            float:left;
+                            margin-bottom:10px
+                        }
+
+                        .opening_hours_times {
+                            float:left;
+                            margin-bottom:10px
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .view_all_store_details {
+        text-align:center;
+        text-decoration:underline;
+        font-size:1.4rem;
+        color:#3d3d3d;
+        margin-bottom:20px;
+        display:none;
+
+        @include media($desktop) {
+            display:block;
+        }
+    }
+}
+
+.flash_no_slot_selected {
+    display:none;
+}
+.no_slot_selected_notice {
+    background-color: #f0f0f0;
+    border-top: 1px solid #ddd;
+    padding: 20px 0;
+    font-size: 18px;
+    line-height: 28px;
+    text-align: center;
+
+    .inner-container {
+        width: 260px;
+
+        @include media($tablet) {
+            width: 720px;
+        }
+
+        #payment-intro {
+            line-height: 25px;
+            display: inline-block;
+
+            strong {
+                font-family: MaryAnnBold, open-sans, sans-serif;
+            }
+        }
+    }
+}
+
+.additional_store_details {
+    @include media($tablet) {
+        display:none;
+    }
+}
+
+.store_details_store_address {
+    line-height:2.5rem;
+}
